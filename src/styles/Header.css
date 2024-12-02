@@ -21,7 +21,7 @@
 
 .search-container{
     width: 20%;
-    margin-left: 14%;
+    margin-left: 12%;
     display: flex;
     align-items: center;
     >input{
@@ -31,9 +31,9 @@
 }
 
 .menu-container{
-    margin-left: 10%;
+    margin-left: 7%;
     height: 100%;
-    width: 25%;
+    width: 35%;
     color: white;
 }
 
@@ -54,7 +54,7 @@
     list-style-type: none;    
 }
 .menu ul li:hover{
-    color: rgb(255, 138, 158);
+    color: rgb(236, 114, 43);
     transition: color 0.2s ease;
 }
 

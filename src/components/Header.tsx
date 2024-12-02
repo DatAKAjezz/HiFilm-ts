@@ -21,7 +21,15 @@ const Header = () => {
             <li><a>Trang chủ  </a></li>
             <li><a>Thể loại <i className="fa-solid fa-caret-down"></i></a></li>
             <li><a>Xem nhiều nhất</a></li>
-          </ul>
+
+            {/* Khó quá làm sau */}
+            <li onClick = {() => {
+              window.alert("Tính năng này đang cập nhật")
+            }}><a>WatchParty</a></li>
+            <li onClick = {() => {
+              window.alert("Tính năng này đang cập nhật")
+            }}><a>Log In <i className="fa-solid fa-key"></i></a></li>
+            </ul>
         </nav>
       </div>
 

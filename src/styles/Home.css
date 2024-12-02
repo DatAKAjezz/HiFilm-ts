@@ -1,0 +1,52 @@
+.home-container{
+    width: 70%;
+}
+
+.phim-chieu-rap{
+    width: 90%;
+    margin-left: 10%;
+    margin-top: 2%;
+}
+.home-movie-container{
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    >img{
+        border-radius: 2%;
+        margin-top: 2vh;
+        width: 23%;
+        height: 350px;
+    }
+}
+
+.head-of-container{
+    background-color: black;
+    margin-left: 1%;
+    width: 98%;
+    height: 6vh;
+    border-radius: 10px;
+    overflow: hidden;
+    display: flex;
+    justify-content: space-between;
+    >p:nth-child(1){
+        height: 100%;
+        width: 18%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color:rgb(236, 114, 43);
+        color: black;
+    }
+    >p:nth-child(2){
+        display: flex;
+        align-items: center;
+        color: white;
+        margin-right: 1rem;
+        transition: all 0.2s ease;
+        cursor: pointer;
+    }
+    >p:nth-child(2):hover{
+        color :rgb(236, 114, 43);
+    }
+}
