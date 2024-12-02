@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react'
-import { Movie } from '../services/types';
+import { Movie, MovieDetails } from '../services/types';
 import { getMovieDetails, getNewMovies } from '../services/API';
 import '../styles/Home.css'
+import MovieCard from '../components/MovieCard';
 
 const HeadContainer = (props: {msg:string}) => {
   return (
@@ -15,8 +16,8 @@ const HeadContainer = (props: {msg:string}) => {
 const Home = () => {
   
   const [movies, setMovies] = useState<Movie[]>([]);
-  const [page, setPage] = useState<number>(8);
-  const [movieDetails, setMovieDetails] = useState<MovieDetail[]>([]);
+  const [page, setPage] = useState<number>(20);
+  const [movieDetails, setMovieDetails] = useState<MovieDetails[]>([]);
 
   useEffect(() => {
 
@@ -31,8 +32,7 @@ const Home = () => {
 
         const details = await Promise.all(detailsPromises);
         setMovieDetails(details);
-        console.log(details);
-        
+        console.log(details); 
       }
       catch (err){
         console.log("Error fetching: ", err);
@@ -50,7 +50,13 @@ const Home = () => {
         <div className = 'home-movie-container'>
           { 
             movieDetails.map(Obj2 => (
-              <img key={Obj2.movie._id} src = {Obj2.movie.thumb_url}></img>
+              <MovieCard key={Obj2.movie._id} 
+                        _key={Obj2.movie._id} 
+                        thumb_url = {Obj2.movie.thumb_url}
+                        vi_name = {Obj2.movie.name}
+                        og_name = {Obj2.movie.origin_name}
+                        year = {Obj2.movie.year}
+              />
             ))
           }
         </div>
