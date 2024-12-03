@@ -2,10 +2,10 @@
     width: 70%;
 }
 
-.phim-chieu-rap{
+.phim-container{
     width: 90%;
     margin-left: 10%;
-    margin-top: 2%;
+    /* margin-top: 2%; */
 }
 .home-movie-container{
     width: 100%;
@@ -44,7 +44,66 @@
         color :rgb(236, 114, 43);
     }
 }
+/*MARK: new movie
+ */
 
+.new-movie-stage {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.new-movie-card {
+    width: 90%;
+    height: 100px;
+    background-size: cover;
+    background-position: center;
+    border-radius: 4px;
+    transition: transform 0.3s ease;
+    overflow: hidden;
+}
+  
+.new-movie-card:hover {
+    transform: scale(1.05);
+}
+.new-movie-stage{
+    margin-top: 2%;
+    margin-left: 10%;
+    width: 90%;
+    justify-content: space-between;
+}
+
+.new-movie-container{
+    margin-top: 2%;
+    width: 97%;
+    height: 130px;
+    display: flex;
+    position: relative;
+    /* overflow-y: visible !important; */
+    
+    .swiper-pagination-bullet {
+        background: white;
+        width: 0.3rem;
+        height:0.3rem;
+        border-radius: .5rem;
+        opacity: 1;
+    }
+    
+    .swiper-pagination-bullet-active {
+      background-color: rgb(0, 255, 145);
+      width: 1.5rem;
+      transition: all 0.4s ease;
+    }
+}
+
+.new-movie-card-wrapper{
+    width: 25% !important;
+}
+
+.new-movie-card:hover {
+    transform: scale(1.05);
+}
+ 
 /*MARK: movie-card */
 
 .movie-card {
@@ -103,15 +162,26 @@
 }
 
 .card-name-wrapper {
-    color: white;
     position: absolute;
     bottom: 0px;
     width: 100%;
     background-color: black;
+    backdrop-filter: blur(6px);
     >p:nth-child(1){
-        font-size: 0.8rem;
+        color: rgb(190, 190, 9);
+        font-size: 0.9rem;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        font-weight: bold;
+        text-align: center;
+        padding-left: 1rem;
     }
     >p:nth-child(2){
+        font-style: italic;
+        color: white;
         font-size: 0.6rem;
+        text-align: center;
+        margin-bottom: 3%;
     }
 }

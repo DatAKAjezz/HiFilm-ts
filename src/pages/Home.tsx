@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react'
-import { Movie, MovieDetails } from '../services/types';
+import { Movie } from '../services/types';
 import { getMovieDetails, getNewMovies } from '../services/API';
 import '../styles/Home.css'
 import MovieCard from '../components/MovieCard';
+import { MovieDetails } from './../services/types';
+import MovieCarousel from '../components/MovieCarousel';
 
-const HeadContainer = (props: {msg:string}) => {
+export const HeadContainer = (props: {msg:string}) => {
   return (
     <div className = "head-of-container">
       <p>{props.msg}</p>
@@ -16,7 +18,7 @@ const HeadContainer = (props: {msg:string}) => {
 const Home = () => {
   
   const [movies, setMovies] = useState<Movie[]>([]);
-  const [page, setPage] = useState<number>(20);
+  const [page, setPage] = useState<number>(8);
   const [movieDetails, setMovieDetails] = useState<MovieDetails[]>([]);
 
   useEffect(() => {
@@ -45,7 +47,8 @@ const Home = () => {
 
   return (
     <div className = 'home-container'>
-      <div className = 'phim-chieu-rap'>
+      <MovieCarousel data = {movieDetails}/>
+      <div className = 'phim-container'>
         <HeadContainer msg = "Phim Chiếu Rạp"/>
         <div className = 'home-movie-container'>
           { 
@@ -61,8 +64,21 @@ const Home = () => {
           }
         </div>
       </div>
-      <div className = "phim-bo">
-
+      <div className = "phim-container">
+        <HeadContainer msg = "Phim Bộ"/>   
+        <div className = "home-movie-container">
+        { 
+            movieDetails.map(Obj2 => (
+              <MovieCard key={Obj2.movie._id} 
+              _key={Obj2.movie._id} 
+              thumb_url = {Obj2.movie.thumb_url}
+              vi_name = {Obj2.movie.name}
+              og_name = {Obj2.movie.origin_name}
+              year = {Obj2.movie.year}
+              />
+            ))
+          }
+        </div>       
       </div>
       <div className = "phim-le">
 
