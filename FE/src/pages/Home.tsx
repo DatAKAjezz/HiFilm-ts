@@ -18,7 +18,7 @@ export const HeadContainer = (props: {msg:string}) => {
 const Home = () => {
   
   const [movies, setMovies] = useState<Movie[]>([]);
-  const [page, setPage] = useState<number>(8);
+  const [page, setPage] = useState<number>(4);
   const [movieDetails, setMovieDetails] = useState<MovieDetails[]>([]);
 
   useEffect(() => {
@@ -48,11 +48,12 @@ const Home = () => {
   return (
     <div className = 'home-container'>
       <MovieCarousel data = {movieDetails}/>
+
       <div className = 'phim-container'>
         <HeadContainer msg = "Phim Chiếu Rạp"/>
         <div className = 'home-movie-container'>
           { 
-            movieDetails.map(Obj2 => (
+            movieDetails.filter(Obj => (Obj.movie.type === "single" && Obj.movie.chieurap == false)).map(Obj2 => (
               <MovieCard key={Obj2.movie._id} 
                         _key={Obj2.movie._id} 
                         thumb_url = {Obj2.movie.thumb_url}
@@ -68,7 +69,7 @@ const Home = () => {
         <HeadContainer msg = "Phim Bộ"/>   
         <div className = "home-movie-container">
         { 
-            movieDetails.map(Obj2 => (
+            movieDetails.filter(Obj => (Obj.movie.type === "series")).map(Obj2 => (
               <MovieCard key={Obj2.movie._id} 
               _key={Obj2.movie._id} 
               thumb_url = {Obj2.movie.thumb_url}

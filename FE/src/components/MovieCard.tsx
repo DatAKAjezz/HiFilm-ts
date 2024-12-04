@@ -1,4 +1,3 @@
-import React from 'react'
 import '../styles/Home.css'
 import { PiMonitorPlayLight } from 'react-icons/pi'
 

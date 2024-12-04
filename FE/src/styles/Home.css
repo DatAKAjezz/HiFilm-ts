@@ -54,18 +54,29 @@
 }
 
 .new-movie-card {
-    width: 90%;
-    height: 100px;
+    width: 90% !important;
+    height: 110px !important;
     background-size: cover;
-    background-position: center;
-    border-radius: 4px;
-    transition: transform 0.3s ease;
-    overflow: hidden;
 }
-  
-.new-movie-card:hover {
-    transform: scale(1.05);
+
+.card-name-wrapper2{
+    width: 100%;
+    text-align: center;
+    flex-direction: column;
+    background-color: black;
+    >p:nth-child(1){
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        font-size: 0.8rem;
+        color: yellow;
+    }
+    >p:nth-child(2){
+        color: white;
+        font-size: 0.5rem;
+    }
 }
+
 .new-movie-stage{
     margin-top: 2%;
     margin-left: 10%;
@@ -76,7 +87,7 @@
 .new-movie-container{
     margin-top: 2%;
     width: 97%;
-    height: 130px;
+    height: 140px;
     display: flex;
     position: relative;
     /* overflow-y: visible !important; */

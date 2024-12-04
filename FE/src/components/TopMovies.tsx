@@ -1,8 +1,8 @@
-import React from 'react'
+import '../styles/TopMovies.css'
 
 const TopMovies = () => {
   return (
-    <div>
+    <div className='top-movies'>
       
     </div>
   )
