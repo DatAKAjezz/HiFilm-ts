@@ -4,6 +4,7 @@
   import Home from './pages/Home'
   import { Movie } from './services/types';
   import { getAllMovies } from './services/API';
+import axios, { all } from 'axios';
 
   function App() {
 
@@ -12,8 +13,9 @@
     useEffect(() => {
       const fetchAllMovies = async () => {
         try{
-          const data = await getAllMovies();
-          if (data) console.log(data);
+          const res = await axios.get('http://localhost:3000/api/movies');
+          setAllMovies(res.data.data);
+          console.log(allMovies);
         }
         catch(err){
           console.log("Error fetching all movies: ", err);
