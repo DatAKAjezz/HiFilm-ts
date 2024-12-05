@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Movie } from '../services/types';
 import { getMovieDetails, getNewMovies } from '../services/API';
 import '../styles/Home.css'
@@ -6,9 +6,9 @@ import MovieCard from '../components/MovieCard';
 import { MovieDetails } from './../services/types';
 import MovieCarousel from '../components/MovieCarousel';
 
-export const HeadContainer = (props: {msg:string}) => {
+export const HeadContainer = (props: {msg:string, class: string}) => {
   return (
-    <div className = "head-of-container">
+    <div className = {`head-of-container ${props.class}`}>
       <p>{props.msg}</p>
       <p>Xem thêm</p>
     </div>
@@ -18,7 +18,7 @@ export const HeadContainer = (props: {msg:string}) => {
 const Home = () => {
   
   const [movies, setMovies] = useState<Movie[]>([]);
-  const [page, setPage] = useState<number>(4);
+  const [page, setPage] = useState<number>(16);
   const [movieDetails, setMovieDetails] = useState<MovieDetails[]>([]);
 
   useEffect(() => {

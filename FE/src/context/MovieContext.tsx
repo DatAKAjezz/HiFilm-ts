@@ -1,9 +1,9 @@
 import React, { createContext, ReactNode, useState } from "react";
-import { Movie } from "../services/types";
+import { MovieDetails } from "../services/types";
 
 interface MovieContextType {
-  allMovies: Movie[],
-  setAllMovies: React.Dispatch<React.SetStateAction<Movie[]>>;
+  allMovies: MovieDetails[],
+  setAllMovies: React.Dispatch<React.SetStateAction<MovieDetails[]>>;
 }
 
 const MovieContext = createContext<MovieContextType | undefined>(undefined);
@@ -13,7 +13,7 @@ interface MovieProviderProps {
 }
 
 export const MovieProvider = ({ children }: MovieProviderProps) => {
-    const [allMovies, setAllMovies] = useState<Movie[]>([]);
+    const [allMovies, setAllMovies] = useState<MovieDetails[]>([]);
 
     return(
         <MovieContext.Provider value = {{allMovies, setAllMovies}}>

@@ -30,8 +30,10 @@ function App() {
     <div>
       <Header />
       <BrowserRouter>
-        <Home />
-        <TopMovies />
+          <div className = "home-top-wrapper"> {/*style in TopMovies.css*/}
+            <Home />
+            <TopMovies />
+          </div>
       </BrowserRouter>
     </div>
   );
