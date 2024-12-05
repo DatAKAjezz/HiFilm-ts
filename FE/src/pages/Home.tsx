@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Movie } from '../services/types';
-import { getMovieDetails, getNewMovies } from '../services/API';
+import { getMovieDetailsWithPage  } from '../services/API';
 import '../styles/Home.css'
 import MovieCard from '../components/MovieCard';
 import { MovieDetails } from './../services/types';
@@ -17,22 +16,14 @@ export const HeadContainer = (props: {msg:string, class: string}) => {
 
 const Home = () => {
   
-  const [movies, setMovies] = useState<Movie[]>([]);
-  const [page, setPage] = useState<number>(16);
+  const [page, _] = useState<number>(5);
   const [movieDetails, setMovieDetails] = useState<MovieDetails[]>([]);
 
   useEffect(() => {
 
     const fetchMovie = async () => {
       try{
-        const data = await getNewMovies(page);
-        setMovies(data.items);
-
-        const detailsPromises = data.items.map((movie) => {
-          return getMovieDetails(movie.slug);
-        })
-
-        const details = await Promise.all(detailsPromises);
+        const details = await getMovieDetailsWithPage(page);
         setMovieDetails(details);
         console.log(details); 
       }
@@ -47,10 +38,10 @@ const Home = () => {
 
   return (
     <div className = 'home-container'>
-      <MovieCarousel data = {movieDetails}/>
+      <MovieCarousel/>
 
       <div className = 'phim-container'>
-        <HeadContainer msg = "Phim Chiếu Rạp"/>
+        <HeadContainer msg = "Phim Chiếu Rạp" class = ""/>
         <div className = 'home-movie-container'>
           { 
             movieDetails.filter(Obj => (Obj.movie.type === "single" && Obj.movie.chieurap == false)).map(Obj2 => (
@@ -66,7 +57,7 @@ const Home = () => {
         </div>
       </div>
       <div className = "phim-container">
-        <HeadContainer msg = "Phim Bộ"/>   
+        <HeadContainer msg = "Phim Bộ" class = ""/>   
         <div className = "home-movie-container">
         { 
             movieDetails.filter(Obj => (Obj.movie.type === "series")).map(Obj2 => (

@@ -6,6 +6,7 @@ import TopMovies from "./components/TopMovies";
 import { MovieProvider, useMovies } from "./context/MovieContext";
 import axios from "axios";
 import { BrowserRouter } from "react-router-dom";
+import { SkeletonTheme } from "react-loading-skeleton";
 
 function App() {
   const { allMovies, setAllMovies } = useMovies();
@@ -28,13 +29,16 @@ function App() {
 
   return (
     <div>
-      <Header />
-      <BrowserRouter>
-          <div className = "home-top-wrapper"> {/*style in TopMovies.css*/}
+      <SkeletonTheme baseColor = "#313131" highlightColor="#525252">
+        <Header />
+        <BrowserRouter>
+          <div className="home-top-wrapper">
+            {/*style in TopMovies.css*/}
             <Home />
             <TopMovies />
           </div>
-      </BrowserRouter>
+        </BrowserRouter>
+      </SkeletonTheme>
     </div>
   );
 }

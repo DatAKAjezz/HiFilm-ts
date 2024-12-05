@@ -1,12 +1,12 @@
 import express from 'express';
 import axios from 'axios';
 import cors from 'cors';
-import { MovieDetails } from './types';
+import { Movie, MovieDetails } from './types';
 
 const app = express();
 const port = 3000;
 // data
-let allMovies: Movie[] = [];  
+let allMovieDetails: MovieDetails[] = [];  
 
 app.use(cors());
 
@@ -14,17 +14,6 @@ export interface MovieListResponse {
     currentPage: number;
     totalPages: number;
     items: Movie[];
-}
-
-export interface Movie {
-    _id: string;
-    slug: string;
-    name: string;
-    origin_name: string;
-    thumb_url: string;
-    year: string;
-    category: string[];
-    view: number;
 }
 
 const getMovieDetails = async (slug: string): Promise<MovieDetails> => {
@@ -41,12 +30,18 @@ const fetchMovies = async () => {
             console.log("fetching page: ", currentPage);
             const response = await axios.get<MovieListResponse>(`https://ophim1.com/danh-sach/phim-moi-cap-nhat?page=${currentPage}`);
             const movies = response.data.items;
+    
+            const detailsPromises = movies.map((movie) => {
+              return getMovieDetails(movie.slug);
+            })
+    
+            const details = await Promise.all(detailsPromises);
 
             if (!movies || movies.length === 0) {
                 break;
             }
 
-            allMovies = [...allMovies, ...movies];
+            allMovieDetails = [...allMovieDetails, ...details];
 
             if (currentPage >= response.data.totalPages) {
                 const endTime = Date.now();
@@ -57,7 +52,7 @@ const fetchMovies = async () => {
             currentPage++;
         }
 
-        console.log("Movies fetched successfully:", allMovies.length);
+        console.log("Movies fetched successfully:", allMovieDetails.length);
     } catch (error) {
         console.error('Error fetching movies:', error);
     }
@@ -66,11 +61,11 @@ const fetchMovies = async () => {
 fetchMovies();
 
 app.get('/api/movies', (req, res) => {
-    if (allMovies.length > 0) {
+    if (allMovieDetails.length > 0) {
         res.json({
             status: "success",
             message: "Fetching complete",
-            data: allMovies
+            data: allMovieDetails
         });
     } else {
         res.status(500).json({ message: 'Movies not fetched yet' });
