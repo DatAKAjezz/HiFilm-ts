@@ -196,3 +196,8 @@
         margin-bottom: 3%;
     }
 }
+
+.movie-card-skeleton{
+    width: 23%;
+    height: 350px;
+}

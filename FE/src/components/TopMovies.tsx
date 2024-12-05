@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useEffect, useState } from "react";
 import { useMovies } from "../context/MovieContext";
 import "../styles/TopMovies.css";
@@ -13,7 +14,7 @@ const TopMovies = () => {
   useEffect(() => {
     const fetchMovies = () => {
       const data: MovieDetails[] = allMovies
-        .filter((Obj) => Obj.movie.year === 2023)
+        .filter((Obj) => Obj.movie.year === 2024 || Obj.movie.year === 2023)
         .sort((a, b) => b.movie.view - a.movie.view);
       console.log("Top: ", trendingMovies);
       if (allMovies.length > 0 && allMovies) {
@@ -32,7 +33,7 @@ const TopMovies = () => {
         {!isDoneFetching ? (
           Array(6)
           .fill(0)
-          .map((_, index) => (
+          .map((_, _index) => (
             <div className = "top-movie-skeleton">
               <Skeleton height={100} width="50%"/>
               <div className="skeleton-wrapper">
