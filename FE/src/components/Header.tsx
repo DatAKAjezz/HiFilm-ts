@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import logo from '../assets/logo.jpg'
 import '../styles/Header.css'
 import { useNavigate } from 'react-router-dom';
@@ -6,12 +6,28 @@ import { useNavigate } from 'react-router-dom';
 const Header = () => {
 
   const [searchQuery, setSearchQuery] = useState<string>("");
+  const [isDropped, setIsDropped] = useState<boolean>(false);
   const navigate = useNavigate();
 
-  const handleSearch = (e) => {
+  const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
     navigate(`/search?q=${searchQuery}`)
   }
+
+  const handleDrop = () => {
+    setIsDropped(prev => !prev);
+  }
+
+  const closeMenu = (e: React.MouseEvent<HTMLElement>) => {
+    if (!(e.target as HTMLElement).closest(".menu-container")) {
+      setIsDropped(false);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener("click", closeMenu);
+    return () => document.removeEventListener("click", closeMenu);
+  }, []);
 
   return (
     <div className = "header-container">
@@ -29,16 +45,37 @@ const Header = () => {
               onChange={(e) => setSearchQuery(e.target.value)}      
           >
           </input>
-          <i className="fa fa-search" aria-hidden="true" id = 'search-icon'></i>        
+          <i onClick={handleSearch} className="fa fa-search" aria-hidden="true" id = 'search-icon'></i>        
         </form>
       </div>
 
       <div className = 'menu-container'>
         <nav className = 'menu'>
           <ul>
-            <li><a>Trang chủ  </a></li>
-            <li><a>Thể loại <i className="fa-solid fa-caret-down"></i></a></li>
-            <li><a>Xem nhiều nhất</a></li>
+            <li onClick = {() => {navigate('/')}}><a>Trang chủ  </a></li>
+            <li className = "movie-types" onClick={handleDrop}>
+              <a>Thể loại 
+                {" "}<i className="fa-solid fa-caret-down" 
+                        style={{transform: isDropped ? "rotateX(180deg)" : "rotateX(0)"}}>  
+                      </i>
+              </a>
+              <nav style={{height: isDropped ? '120px' : '0'}}>
+                <ul>
+                  <li>Hành Động</li>
+                  <li>Kinh dị</li>
+                  <li>Phiêu lưu</li>
+                  <li>Hoạt hình</li>
+                  <li>Tình cảm</li>
+                  <li>Hài hước</li>
+                  <li>Lịch sử</li>
+                  <li>Khoa Học</li>
+                  <li>Viễn tưởng</li>
+                </ul>
+              </nav>
+            </li>
+            <li>
+              <a>Xem nhiều nhất</a>
+            </li>
 
             {/* Khó quá làm sau */}
             <li onClick = {() => {

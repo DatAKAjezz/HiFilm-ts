@@ -44,7 +44,7 @@ const TopMovies = () => {
           ))
         ) : (
           trendingMovies
-            .filter((_, index) => index < 10)
+            .filter((_, index) => index < 9)
             .map((Obj) => (
               <div className="top-movie-card" title={Obj.movie.name}>
                 <img src={Obj.movie.poster_url}></img>

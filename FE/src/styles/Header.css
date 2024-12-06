@@ -25,11 +25,16 @@
     display: flex;
     align-items: center;
     >form{
+        display: flex;
+        align-items: center;
         width: 90%;
         height: 36%;
         >input{
             width: 100%;
             height: 100%;
+        }
+        >i{
+            cursor: pointer;
         }
     }
 }
@@ -55,10 +60,15 @@
 }
 .menu ul li{
     cursor: pointer;
-    list-style-type: none;    
+    list-style-type: none;
+    a i{
+        transition: all 0.3s ease;
+    }    
 }
 .menu ul li:hover{
-    color: rgb(236, 114, 43);
+    >a{
+        color: rgb(236, 114, 43);
+    }
     transition: color 0.2s ease;
 }
 
@@ -66,9 +76,41 @@
 #search-icon{
     margin-left: -20px;
 }
-
 #header-logo{
     height: 90%;
     border-radius: 50%;
     margin-left: 3%;
+}
+
+/*MARK: drop-down
+ */
+
+.movie-types{
+    position: relative;
+    >nav{
+        overflow: hidden;
+        position: absolute;
+        width: 300px;
+        transition: all 0.3s ease;
+        left: 80%;
+        top: 110%;
+        background-color: grey;
+        ul{
+            display: grid;
+            width: 100%;
+            grid-template-columns: 33% 33% 33%;
+            >li{
+                background-color: grey;
+                width: 100%;
+                height: 40px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            >li:hover{
+                color: white;
+                background-color: rgb(71, 70, 70);
+            }
+        }
+    }
 }
