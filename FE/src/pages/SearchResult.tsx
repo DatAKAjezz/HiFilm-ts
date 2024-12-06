@@ -14,6 +14,7 @@ const SearchResult = () => {
     const { allMovies } = useMovies();
     const [searchParam] = useSearchParams();
     const [filteredList, setFilteredList] = useState<MovieDetails[]>([]);
+    const [filteredList2, setFilteredList2] = useState<MovieDetails[]>([]);
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const [typeOfSearch, setTypeOfSearch] = useState<number>();
     const [chieurap, setChieurap] = useState<boolean>(false);
@@ -25,19 +26,28 @@ const SearchResult = () => {
     const query = searchParam.get("q") || "";
 
     useEffect(() => {
+      setTypeOfSearch(0);
+      setChieurap(false);
+    }, [query])
+
+    useEffect(() => {
       const filter = allMovies.filter((movie) => (
         movie.movie.name.toLowerCase().includes(query.toLowerCase())
         || movie.movie.origin_name.toLowerCase().includes(query.toLowerCase()) 
       ))
       setFilteredList(filter);
+      setFilteredList2(filter);
       setIsLoading(false);
     }, [query, allMovies])
 
     const handleTypeSearch = (idx: number) => {
-      setTypeOfSearch(idx);
-      if (idx == 1) {setChieurap(prev => !prev)}
-      const filter = allMovies.filter((Obj) => (Obj.movie.type === listTypeOfSearch[idx - 2]
-                                                && Obj.movie.chieurap === chieurap));
+      if (idx !== 1) setTypeOfSearch(idx);
+      if (idx == 1) { setChieurap(prev => !prev)  }
+      let filter = filteredList2.filter((Obj) => (Obj.movie.type === listTypeOfSearch[idx - 2]));
+      if (chieurap){
+        filter = filter.filter((Obj) => (Obj.movie.chieurap === true));
+      }
+
       console.log("Filter: ", filter);
       setFilteredList(filter);
     }
@@ -72,10 +82,10 @@ const SearchResult = () => {
                   </div>
                 </div>
               ))
-            ): (filteredList.map((Obj2,index) => {
+            ): (filteredList.length === 0 ? (<div>Bruh! Nothing found :(</div>):(filteredList?.map((Obj2,index) => {
               if (index > 11) return;
               return (<MovieCard movie = {Obj2}/>)
-            }))
+            })))
           }
         </div>
       </div>
