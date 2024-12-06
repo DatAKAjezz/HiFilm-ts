@@ -1,18 +1,36 @@
+import { useState } from 'react'
 import logo from '../assets/logo.jpg'
 import '../styles/Header.css'
+import { useNavigate } from 'react-router-dom';
 
 const Header = () => {
+
+  const [searchQuery, setSearchQuery] = useState<string>("");
+  const navigate = useNavigate();
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    navigate(`/search?q=${searchQuery}`)
+  }
+
   return (
     <div className = "header-container">
       <div className = 'logo-container'>
         <img src = {logo} id = "header-logo" />
-        <h2>Cina-Mọt</h2>
+        <h2>CinaMọt</h2>
       </div>  
 
       <div className = 'search-container'>
-        <input type='text' placeholder='Tìm kiếm phim...'>
-        </input>
-        <i className="fa fa-search" aria-hidden="true" id = 'search-icon'></i>        
+        <form onSubmit={handleSearch}>
+          <input 
+              type='text' 
+              placeholder='  Tìm kiếm phim...'
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}      
+          >
+          </input>
+          <i className="fa fa-search" aria-hidden="true" id = 'search-icon'></i>        
+        </form>
       </div>
 
       <div className = 'menu-container'>
