@@ -10,10 +10,12 @@ import { useEffect, useState } from "react";
 import { getMovieDetailsWithPage } from "../services/API";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
+import { useNavigate } from "react-router-dom";
 
 const MovieCarousel = () => {
   const [movies, setMovies] = useState<MovieDetails[]>([]);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchMovie = async () => {
@@ -66,6 +68,7 @@ const MovieCarousel = () => {
                     title={Obj.movie.name}
                     className="movie-card new-movie-card"
                     style={{ backgroundImage: `url(${Obj.movie.poster_url})` }}
+                    onClick={() => {navigate(`phim/${Obj.movie.slug}`)}}
                   >
                     <PiMonitorPlayLight className="play-icon" />
                     <div className="card-name-wrapper">

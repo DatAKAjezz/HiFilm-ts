@@ -56,7 +56,7 @@ function App() {
                   </>
                 }
               />
-              <Route path="/phim" element={<MovieDetailsPage />} />
+              <Route path="/phim/:slug" element={<MovieDetailsPage />} />
             </Routes>
             <Footer />
           </div>

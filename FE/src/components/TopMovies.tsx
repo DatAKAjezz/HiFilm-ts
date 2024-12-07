@@ -5,6 +5,7 @@ import "../styles/TopMovies.css";
 import { MovieDetails } from "./../services/types";
 import Skeleton from "react-loading-skeleton";
 import { HiFire } from "react-icons/hi";
+import { useNavigate } from "react-router-dom";
 
 const TopMovies = () => {
   const [trendingMovies, setTrendingMovies] = useState<MovieDetails[]>([]);
@@ -12,6 +13,8 @@ const TopMovies = () => {
   const [isDoneFetching, setIsDoneFetching] = useState<boolean>(false);
   const { allMovies } = useMovies();
   const [filterType, setFilterType] = useState<number>(0);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchMovies = () => {
@@ -59,7 +62,7 @@ const TopMovies = () => {
           Array(6)
           .fill(0)
           .map((_, _index) => (
-            <div className = "top-movie-skeleton">
+            <div key={_index} className = "top-movie-skeleton">
               <Skeleton height={100} width="50%"/>
               <div className="skeleton-wrapper">
                 <Skeleton height={20} width="30%" style={{ marginBottom: 8 }} />
@@ -70,8 +73,11 @@ const TopMovies = () => {
         ) : (
           trendingMovies
             .filter((_, index) => index < 9)
-            .map((Obj) => (
-              <div className="top-movie-card" title={Obj.movie.name}>
+            .map((Obj,idx) => (
+              <div key = {idx} className="top-movie-card" 
+                   title={Obj.movie.name} 
+                   onClick={() => {navigate(`phim/${Obj.movie.slug}`)}}
+              >
                 <img src={Obj.movie.poster_url}></img>
                 <div>
                   <p>{Obj.movie.name}</p>

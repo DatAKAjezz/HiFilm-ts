@@ -1,0 +1,108 @@
+.detail-wrapper{
+    color: white;
+    width: 70%;
+    margin-left: 10%;
+    margin-top: 2%;
+    border-radius: 6px;
+    background-color: rgb(15, 20, 22);
+    >hr{
+        width: 96%;
+        margin: 6px auto;
+    }
+}
+.detail-container{
+    display: flex;
+    width: 100%;
+    justify-content: space-evenly;
+    >div:nth-child(1){
+        width: 20%;
+        display: flex;
+        align-items: center;justify-content: center;
+        padding-block: 1%;
+        >img{
+            width: 92%;
+            border-radius: 2px;
+        }
+    }
+}
+.right{
+    width: 78%;
+    >div:nth-child(1){
+        margin-block: 10px;
+        >p:nth-child(2){
+            font-size: 0.9rem;
+            color: rgb(187, 186, 186) !important;
+            font-style: italic;
+        }
+        >p:nth-child(3){
+            width: 25%;
+            margin-top: 10px;
+            background-color: rgb(64, 139, 234);
+            padding-inline: 7px;
+            display: inline;
+            height: 4vh;
+            display: flex;
+            align-items: center;justify-content: center;
+        }
+    }
+    >hr{
+        margin-block: 10px;
+    }
+    >div:nth-child(3){
+        display: flex;
+        >div:nth-child(1){
+            display: flex;
+            align-items: center;justify-content: center;
+            width: 60px;
+            height: 45px;
+            background-color: rgb(41, 40, 40);
+        }
+        >div:nth-child(2){
+            margin-left: 10px;
+            >div{
+                >i{
+                    margin-inline: 2px;
+                    font-size: 1.1rem;
+                }
+            }
+            >p{
+                font-size: 0.8rem;
+                color: rgb(187, 186, 186);
+            }
+        }
+    }
+}
+
+.thongtin{
+    >ul{
+        margin-left: 5%;
+        display: flex;
+        >li:nth-child(1){
+            margin-right: 20%;
+        }
+        >li:nth-child(1):hover{
+            background-color: rgb(174, 5, 5) !important;
+            color: white !important;
+        }
+        >li{
+            width: 12%;
+            list-style-type: none;
+            height: 5vh;
+            margin-block:0px;
+            display: flex;
+            align-items: center;justify-content: center;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        >li:hover{
+            color: rgb(79, 147, 236);
+        }
+    }
+}
+.active{
+    background-color: rgb(64, 139, 234);
+}
+.active:hover{
+    color: white !important;
+}

@@ -49,7 +49,7 @@ const Home = () => {
           { 
             isLoading ? (
               Array(8).fill(10).map((_, _index) => (
-                <div className = 'movie-card-skeleton'>
+                <div key={_index} className = 'movie-card-skeleton'>
                   <Skeleton height={260} width="100%"/>
                   <div className="skeleton-wrapper">
                     <Skeleton height={20} width="30%" style={{ marginBottom: 8 }} />
@@ -74,7 +74,7 @@ const Home = () => {
           { 
             isLoading ? (
               Array(8).fill(10).map((_, _index) => (
-                <div className = 'movie-card-skeleton'>
+                <div key={_index} className = 'movie-card-skeleton'>
                   <Skeleton height={260} width="100%"/>
                   <div className="skeleton-wrapper">
                     <Skeleton height={20} width="30%" style={{ marginBottom: 8 }} />
@@ -99,7 +99,7 @@ const Home = () => {
           { 
             isLoading ? (
               Array(8).fill(10).map((_, _index) => (
-                <div className = 'movie-card-skeleton'>
+                <div key={_index} className = 'movie-card-skeleton'>
                   <Skeleton height={260} width="100%"/>
                   <div className="skeleton-wrapper">
                     <Skeleton height={20} width="30%" style={{ marginBottom: 8 }} />
