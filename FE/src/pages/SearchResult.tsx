@@ -16,19 +16,13 @@ const SearchResult = () => {
     const [filteredList, setFilteredList] = useState<MovieDetails[]>([]);
     const [filteredList2, setFilteredList2] = useState<MovieDetails[]>([]);
     const [isLoading, setIsLoading] = useState<boolean>(true);
-    const [typeOfSearch, setTypeOfSearch] = useState<number>();
-    const [chieurap, setChieurap] = useState<boolean>(false);
-
-    const listTypeOfSearch = ["series", "single", "hoathinh"]
+    const [typeOfSearch, setTypeOfSearch] = useState<number>(0);
 
     // const navigate = useNavigate();
 
     const query = searchParam.get("q") || "";
 
-    useEffect(() => {
-      setTypeOfSearch(0);
-      setChieurap(false);
-    }, [query])
+    
 
     useEffect(() => {
       const filter = allMovies.filter((movie) => (
@@ -38,14 +32,32 @@ const SearchResult = () => {
       setFilteredList(filter);
       setFilteredList2(filter);
       setIsLoading(false);
+      setTypeOfSearch(0);
+      console.log("Filter 1: ", filter);
     }, [query, allMovies])
 
     const handleTypeSearch = (idx: number) => {
-      if (idx !== 1) setTypeOfSearch(idx);
-      if (idx == 1) { setChieurap(prev => !prev)  }
-      let filter = filteredList2.filter((Obj) => (Obj.movie.type === listTypeOfSearch[idx - 2]));
-      if (chieurap){
-        filter = filter.filter((Obj) => (Obj.movie.chieurap === true));
+      
+      let filter: MovieDetails[] = [];
+
+      switch (idx){
+        case 1:
+          setTypeOfSearch(1)
+          filter = filteredList2.filter((Obj) => (Obj.movie.chieurap === true));
+          break;
+        case 2:
+          setTypeOfSearch(2)
+          filter = filteredList2.filter((Obj) => (Obj.movie.episode_total > "1"));
+          break;
+        case 3:
+          setTypeOfSearch(3)
+          filter = filteredList2.filter((Obj) => (Obj.movie.episode_total == "1"));
+          break;
+        case 69:
+          setTypeOfSearch(69);
+          filter = filteredList2;
+          break;
+        default: setTypeOfSearch(0);
       }
 
       console.log("Filter: ", filter);
@@ -57,16 +69,19 @@ const SearchResult = () => {
       <HeadContainer msg = {`Tìm Kiếm`} class = "search-head"/>
       <div className="filter-wrapper">
 
-        <p>Lọc theo </p>
+        <div>
+          <p>Xếp theo </p>
+          <p>Lọc theo </p>  
+        </div>
         <div className = 'filter'>
           <button>View</button>
           <button>Vote</button>
           <button>Rate</button>
           <button>Year</button>
-          <button className={chieurap === true ? "active-type" : ""} onClick={() => {handleTypeSearch(1)}}>Chiếu rạp</button>
+          <button className={typeOfSearch == 1 ? "active-type" : ""} onClick={() => {handleTypeSearch(1)}}>Chiếu rạp</button>
           <button className={typeOfSearch == 2 ? "active-type" : ""} onClick={() => {handleTypeSearch(2)}}>Phim bộ</button>
           <button className={typeOfSearch == 3 ? "active-type" : ""} onClick={() => {handleTypeSearch(3)}}>Phim lẻ</button>
-          <button className={typeOfSearch == 4 ? "active-type" : ""} onClick={() => {handleTypeSearch(4)}}>Hoạt hình</button>
+          <button style = {{backgroundColor: "orange"}}onClick={() => {handleTypeSearch(69)}}>Clear</button>
         </div>
       </div>
       <div className = 'phim-container'>
@@ -82,10 +97,10 @@ const SearchResult = () => {
                   </div>
                 </div>
               ))
-            ): (filteredList.length === 0 ? (<div>Bruh! Nothing found :(</div>):(filteredList?.map((Obj2,index) => {
-              if (index > 11) return;
-              return (<MovieCard movie = {Obj2}/>)
-            })))
+            ): (filteredList.length === 0 ? (<div className = "nothing-found">Bruh! Empty ahh List💀</div>):(filteredList?.map((Obj2,index) => {
+                      if (index > 11) return;
+                      return (<MovieCard movie = {Obj2}/>)
+                })))
           }
         </div>
       </div>

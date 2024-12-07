@@ -48,11 +48,11 @@ const Header = () => {
           <i onClick={handleSearch} className="fa fa-search" aria-hidden="true" id = 'search-icon'></i>        
         </form>
       </div>
-
+    
       <div className = 'menu-container'>
         <nav className = 'menu'>
           <ul>
-            <li onClick = {() => {navigate('/')}}><a>Trang chủ  </a></li>
+            <li onClick = {() => {navigate('/')}}><a>Trang chủ</a></li>
             <li className = "movie-types" onClick={handleDrop}>
               <a>Thể loại 
                 {" "}<i className="fa-solid fa-caret-down" 
@@ -61,7 +61,7 @@ const Header = () => {
               </a>
               <nav style={{height: isDropped ? '120px' : '0'}}>
                 <ul>
-                  <li>Hành Động</li>
+                  <li onClick={() => {}}>Hành Động</li>
                   <li>Kinh dị</li>
                   <li>Phiêu lưu</li>
                   <li>Hoạt hình</li>
