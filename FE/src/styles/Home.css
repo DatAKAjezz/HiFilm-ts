@@ -3,6 +3,10 @@
 }
 
 .phim-container{
+
+    background-color: rgb(15, 20, 22);
+    padding-block: 2%;
+    border-radius: 6px;
     width: 90%;
     margin-left: 10%;
     /* margin-top: 2%; */
@@ -77,11 +81,18 @@
     }
 }
 
+/*MARK: carousel
+ */
+
 .new-movie-stage{
+    background-color: rgb(15, 20, 22);
     margin-top: 2%;
     margin-left: 10%;
     width: 90%;
     justify-content: space-between;
+    padding-block: 1%;
+    border-radius: 6px;
+    margin-bottom: 2%;
 }
 
 .new-movie-container{

@@ -11,51 +11,65 @@ import Footer from "./components/Footer";
 import SearchResult from "./pages/SearchResult";
 import MovieDetailsPage from "./pages/MovieDetailsPage";
 
-  function App() {
-    const { allMovies, setAllMovies } = useMovies();
+function App() {
+  const { allMovies, setAllMovies } = useMovies();
 
-    useEffect(() => {
-      const fetchAllMovies = async () => {
-        try {
-          const res = await axios.get("http://localhost:3000/api/movies");
-          setAllMovies(res.data.data);
-        } catch (err) {
-          console.log("Error fetching all movies: ", err);
-        }
-      };
-      fetchAllMovies();
-    }, [setAllMovies]);
+  useEffect(() => {
+    const fetchAllMovies = async () => {
+      try {
+        const res = await axios.get("http://localhost:3000/api/movies");
+        setAllMovies(res.data.data);
+      } catch (err) {
+        console.log("Error fetching all movies: ", err);
+      }
+    };
+    fetchAllMovies();
+  }, [setAllMovies]);
 
-    useEffect(() => {
-      console.log("Updated movies:", allMovies);
-    }, [allMovies]);
+  useEffect(() => {
+    console.log("Updated movies:", allMovies);
+  }, [allMovies]);
 
-    return (
-      <div>
-        <SkeletonTheme baseColor = "#313131" highlightColor="#525252">
-              {/*style in TopMovies.css*/}
-              <BrowserRouter>
-                <div className = 'all-container'>
-                <Header />
+  return (
+    <div>
+      <SkeletonTheme baseColor="#313131" highlightColor="#525252">
+        {/*style in TopMovies.css*/}
+        <BrowserRouter>
+          <div className="all-container">
+            <Header/>
+            <Routes>
+              <Route
+                path="/"
+                element={
+                  <>
+                    <Home />
+                    <TopMovies />
+                  </>
+                }
+              />
+              <Route
+                path="/search"
+                element={
+                  <>
+                    <SearchResult />
+                    <TopMovies />
+                  </>
+                }
+              />
+              <Route path="/phim" element={<MovieDetailsPage />} />
+            </Routes>
+            <Footer />
+          </div>
+        </BrowserRouter>
+      </SkeletonTheme>
+    </div>
+  );
+}
 
-                <Routes>
-                  <Route path = "/" element = {<Home/>} />
-                  <Route path = '/search' element = {<SearchResult/>}/>
-                  <Route path = "/phim" element = {<MovieDetailsPage/>}/>
-                </Routes>
-                <TopMovies />
-                </div>
-              </BrowserRouter>                        
-          <Footer/>
-        </SkeletonTheme>
-      </div>
-    );
-  }
-
-  export default function AppWithProvider() {
-    return (
-      <MovieProvider>
-        <App />
-      </MovieProvider>
-    );
-  }
+export default function AppWithProvider() {
+  return (
+    <MovieProvider>
+      <App />
+    </MovieProvider>
+  );
+}

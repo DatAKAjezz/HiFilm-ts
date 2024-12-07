@@ -1,13 +1,11 @@
-.home-top-wrapper{
-    width: 100%;
-    display: flex;
-}
-
 .top-movies{
     flex: 1;
     margin-top: 1.5%;
     margin-inline: 1%;
     color: white;
+    background-color: rgb(15, 20, 22);
+    padding-top: 1%;
+    border-radius: 6px;
 }
 
 .top-movie-card{
@@ -54,11 +52,26 @@
     color: rgb(71, 140, 225);
 }
 .top-movie-head{
-    width: 83%;
-    margin: 0 auto;
-    >p:nth-child(1){
-        width: 40%;
+    width: 86%;
+    margin-left: 2%;
+    ul{
+        width: 100%;
+        display: flex;
+        justify-content: space-evenly;
+        >li{
+            text-align: center;
+            cursor: pointer;
+            list-style-type: none;
+            width: 32%;
+        }
+        >li:nth-child(1){
+            display: flex;
+            align-items: center;justify-content: center;
+        }
     }
+}
+#fire-icon{
+    color: orange;  
 }
 
 

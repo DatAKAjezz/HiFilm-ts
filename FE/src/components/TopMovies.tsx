@@ -2,14 +2,16 @@
 import { useEffect, useState } from "react";
 import { useMovies } from "../context/MovieContext";
 import "../styles/TopMovies.css";
-import { HeadContainer } from "../pages/Home";
 import { MovieDetails } from "./../services/types";
 import Skeleton from "react-loading-skeleton";
+import { HiFire } from "react-icons/hi";
 
 const TopMovies = () => {
   const [trendingMovies, setTrendingMovies] = useState<MovieDetails[]>([]);
+  const [trendingMovies2, setTrendingMovies2] = useState<MovieDetails[]>([]);
   const [isDoneFetching, setIsDoneFetching] = useState<boolean>(false);
   const { allMovies } = useMovies();
+  const [filterType, setFilterType] = useState<number>(0);
 
   useEffect(() => {
     const fetchMovies = () => {
@@ -21,14 +23,37 @@ const TopMovies = () => {
         setIsDoneFetching(true);
       }
       setTrendingMovies(data);
+      setTrendingMovies2(data);
     };
 
     fetchMovies();
   }, [allMovies]);
 
+  const handleFilter = (idx: number) => {
+    if (idx == 0){
+      setFilterType(0);
+      setTrendingMovies(trendingMovies2);
+    }
+    else if (idx == 1){
+      setFilterType(1);
+      setTrendingMovies(trendingMovies2.filter(Obj => (Obj.movie.type == 'series' || Obj.movie.type == 'tv')))
+    }
+    else{
+      setFilterType(2);
+      setTrendingMovies(trendingMovies2.filter(Obj => (Obj.movie.type === 'single')));
+    }
+  }
+
   return (
     <div className="top-movies">
-      <HeadContainer msg={"Trending"} class="top-movie-head" />
+
+      <div className="top-movie-head" >
+        <ul>
+          <li style={{color: filterType == 0 ? "red" : "white"}} onClick = {() => {handleFilter(0)}}>Hot <HiFire id="fire-icon"/></li>
+          <li style={{color: filterType == 1 ? "red" : "white"}} onClick = {() => {handleFilter(1)}}>Series/TV</li>
+          <li style={{color: filterType == 2 ? "red" : "white"}} onClick = {() => {handleFilter(2)}}>Movie</li>
+        </ul>
+      </div>
       <div className="top-movie-container">
         {!isDoneFetching ? (
           Array(6)

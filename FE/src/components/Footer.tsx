@@ -11,6 +11,7 @@ const Footer = () => {
 
 const divStyle: React.CSSProperties = {
     height: '10vh',
+    width: '100%',
     backgroundColor: 'black',
     color: 'white',
     marginTop: '2%',

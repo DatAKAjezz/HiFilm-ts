@@ -2,12 +2,15 @@ import { useEffect, useState } from 'react'
 import logo from '../assets/logo.jpg'
 import '../styles/Header.css'
 import { useNavigate } from 'react-router-dom';
+import { useMovies } from '../context/MovieContext';
 
 const Header = () => {
 
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [isDropped, setIsDropped] = useState<boolean>(false);
   const navigate = useNavigate();
+
+  const {allMovies} = useMovies();
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
@@ -40,7 +43,7 @@ const Header = () => {
         <form onSubmit={handleSearch}>
           <input 
               type='text' 
-              placeholder='  Tìm kiếm phim...'
+              placeholder={`  Tìm kiếm....  [${allMovies.length} phim]`}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}      
           >
