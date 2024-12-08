@@ -4,12 +4,13 @@ import Header from "./components/Header";
 import Home from "./pages/Home";
 import TopMovies from "./components/TopMovies";
 import { MovieProvider, useMovies } from "./context/MovieContext";
-import axios, { all } from "axios";
+import axios from "axios";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { SkeletonTheme } from "react-loading-skeleton";
 import Footer from "./components/Footer";
 import SearchResult from "./pages/SearchResult";
 import MovieDetailsPage from "./pages/MovieDetailsPage";
+import MovieCarousel from "./components/MovieCarousel";
 
 function App() {
   const { allMovies, setAllMovies } = useMovies();
@@ -49,14 +50,15 @@ function App() {
               />
               <Route
                 path="/search"
-                element={
+                element={ 
                   <>
                     <SearchResult />
                     <TopMovies />
                   </>
                 }
               />
-              <Route path="/phim/:slug" element={<MovieDetailsPage />} />
+              <Route path="/phim/:slug" element={<><MovieDetailsPage /><TopMovies/></>} />
+              <Route path="/search/phim/:slug" element={<><MovieDetailsPage /><TopMovies/></>} />
             </Routes>
             <Footer />
           </div>

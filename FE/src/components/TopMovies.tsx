@@ -85,7 +85,7 @@ const TopMovies = () => {
                     <p>
                       <i
                         className="fa-solid fa-star"
-                        style={{ marginRight: "10px" }}
+                        style={{ marginRight: "10px"}}
                       ></i>
                       {Obj.movie.tmdb.vote_average.toFixed(1)} | Vote:{" "}
                       {Obj.movie.tmdb.vote_count}

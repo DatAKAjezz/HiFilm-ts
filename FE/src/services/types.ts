@@ -16,6 +16,16 @@ export interface Movie {
 }
 
 export interface MovieDetails {
+    episodes: Array<{
+      server_name: string;
+      server_data: Array<{
+        name: string;
+        slug: string;
+        filename: string;
+        link_embed: string;
+        link_m3u8: string;
+      }>;
+    }>;
     status: boolean;
     msg: string;
     movie: {
@@ -70,16 +80,6 @@ export interface MovieDetails {
         id: string;
         name: string;
         slug: string;
-      }>;
-      episodes: Array<{
-        server_name: string;
-        server_data: Array<{
-          name: string;
-          slug: string;
-          filename: string;
-          link_embed: string;
-          link_m3u8: string;
-        }>;
       }>;
     };
   }

@@ -6,6 +6,7 @@ import { MovieDetails } from './../services/types';
 import MovieCarousel from '../components/MovieCarousel';
 import Skeleton from 'react-loading-skeleton';
 import { useMovies } from '../context/MovieContext';
+import { getMovieDetailsWithPage } from '../services/API';
 
 export const HeadContainer = (props: {msg:string, class: string}) => {
   return (
@@ -17,11 +18,30 @@ export const HeadContainer = (props: {msg:string, class: string}) => {
 }
 
 const Home = () => {
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [])
   
   const { allMovies } = useMovies();
 
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [movies, setMovies] = useState<MovieDetails[]>([]);
+
+  const [newMovies, setNewMovies] = useState<MovieDetails[]>([]);
+
+  useEffect(() => {
+    const fetchMovie = async () => {
+      try {
+        const data = await getMovieDetailsWithPage(1);
+        console.log("new: ", data);
+        setNewMovies(data);
+      } catch (err) {
+        console.log("Error fetching Carousel: ", err);
+      } 
+    };
+    fetchMovie();
+  }, []);
 
   useEffect(() => {
     const fetchMovies = () => {
@@ -38,7 +58,7 @@ const Home = () => {
 
   return (
     <div className = 'home-container'>
-      <MovieCarousel/>
+      <MovieCarousel  data = {newMovies.slice(0, 5)}  isInDetails = {false}/>
 
       {/* MARK: chieu rap
        */}

@@ -6,34 +6,21 @@ import "swiper/css/pagination";
 import { HeadContainer } from "../pages/Home";
 import { MovieDetails } from "../services/types";
 import { PiMonitorPlayLight } from "react-icons/pi";
-import { useEffect, useState } from "react";
-import { getMovieDetailsWithPage } from "../services/API";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import { useNavigate } from "react-router-dom";
+import '../styles/Details.css'
+import { useEffect } from "react";
 
-const MovieCarousel = () => {
-  const [movies, setMovies] = useState<MovieDetails[]>([]);
-  const [loading, setLoading] = useState(true);
+const MovieCarousel = (props: {isInDetails: boolean, data: MovieDetails[]}) => {
+
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const fetchMovie = async () => {
-      try {
-        const data = await getMovieDetailsWithPage(1);
-        setMovies(data);
-      } catch (err) {
-        console.log("Error fetching Carousel: ", err);
-      } finally {
-        setLoading(false); 
-      }
-    };
-    fetchMovie();
-  }, []);
+  useEffect(() => {console.log(props.data)}, [props.data])
 
   return (
-    <div className="new-movie-stage">
-      <HeadContainer msg="Phim Mới Cập Nhật" class="" />
+    <div className={`new-movie-stage ${props.isInDetails ? 'details-carousel' : ''}`}  >
+      {!props.isInDetails ? <HeadContainer msg="Phim Mới Cập Nhật" class="" /> : <></> }
       <Swiper
         modules={[Navigation, Pagination, Autoplay]}
         slidesPerView={4}
@@ -46,7 +33,7 @@ const MovieCarousel = () => {
         loop
         className="new-movie-container"
       >
-        {loading
+        {props.data.length === 0
           ? Array(5) 
               .fill(0)
               .map((_, index) => (
@@ -60,7 +47,7 @@ const MovieCarousel = () => {
                   </div>
                 </SwiperSlide>
               ))
-          : movies
+          : props.data
               .filter((_, index) => index < 5)
               .map((Obj) => (
                 <SwiperSlide key={Obj.movie._id} className="new-movie-card-wrapper">
