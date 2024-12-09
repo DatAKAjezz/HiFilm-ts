@@ -76,7 +76,7 @@ const TopMovies = () => {
             .map((Obj,idx) => (
               <div key = {idx} className="top-movie-card" 
                    title={Obj.movie.name} 
-                   onClick={() => {navigate(`phim/${Obj.movie.slug}`)}}
+                   onClick={() => {navigate(`/phim/${Obj.movie.slug}`)}}
               >
                 <img src={Obj.movie.poster_url}></img>
                 <div>

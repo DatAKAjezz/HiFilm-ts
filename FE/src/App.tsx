@@ -58,7 +58,8 @@ function App() {
                 }
               />
               <Route path="/phim/:slug" element={<><MovieDetailsPage /><TopMovies/></>} />
-              <Route path="/search/phim/:slug" element={<><MovieDetailsPage /><TopMovies/></>} />
+              <Route path="/phim/:slug/:type/:ep" element={<><MovieDetailsPage /><TopMovies/></>}/>
+              <Route path="/phim/:slug/:type/:ep" element={<><MovieDetailsPage /><TopMovies/></>}/>
             </Routes>
             <Footer />
           </div>

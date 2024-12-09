@@ -55,7 +55,7 @@ const MovieCarousel = (props: {isInDetails: boolean, data: MovieDetails[]}) => {
                     title={Obj.movie.name}
                     className="movie-card new-movie-card"
                     style={{ backgroundImage: `url(${Obj.movie.poster_url})` }}
-                    onClick={() => {navigate(`phim/${Obj.movie.slug}`)}}
+                    onClick={() => {navigate(`/phim/${Obj.movie.slug}`)}}
                   >
                     <PiMonitorPlayLight className="play-icon" />
                     <div className="card-name-wrapper">

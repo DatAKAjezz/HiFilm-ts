@@ -3,18 +3,20 @@ import '../styles/Details.css'
 import { getMovieDetails } from '../services/API';
 import { MovieDetails } from './../services/types';
 import { useEffect, useState } from 'react';
-import YouTubeEmbed from '../components/YouTubeEmbed';
 import '../styles/Home.css'
 import MovieCarousel from '../components/MovieCarousel';
 import { useMovies } from '../context/MovieContext';
+import YoutubeEmbed from '../components/YoutubeEmbed';
+import MainVideo from '../components/MainVideo';
 
 const MovieDetailsPage = () => {
 
+  const { slug } = useParams<{slug: string}>();
+  const { ep, type } = useParams();
+  
   useEffect(() => {
     window.scrollTo(0, 0);
-  }, [])
-
-  const { slug } = useParams<{slug: string}>();
+  }, [slug, ep])
 
   const [movie, setMovie] = useState<MovieDetails>();
   const [epTotal, setEpTotal] = useState<string>("0");
@@ -24,6 +26,8 @@ const MovieDetailsPage = () => {
 
   const navigate = useNavigate();
   const { allMovies } = useMovies();
+
+  useEffect(() => {console.log(ep, ' ', type)}, [ep, type])
 
   useEffect(() => {
 
@@ -50,12 +54,22 @@ const MovieDetailsPage = () => {
         mv.movie.category.some((type) => 
           movie.movie.category.map(obj => obj.name).includes(type.name)
         )
-        && mv.movie.type === movie.movie.type
+        && mv.movie.type === movie.movie.type && mv.movie.slug !== movie.movie.slug
       ))
       setMayLikeMovies(mayLikes);
     }
 
   }, [allMovies, movie])
+
+  // Eps and Server__________________________________
+
+  const handleNavigateServer = (index: number) => {
+      navigate(`/phim/${movie?.movie.slug}/server/${index + 1}`)
+  }
+
+  const handleNavigateEpisode = (index: number) => {
+    navigate(`/phim/${movie?.movie.slug}/episode/${index + 1.}`)
+  }
 
   const [infoType, setInfoType] = useState<number>(0);
   const infos: string[] = ['Thông tin', 'Diễn viên', 'Trailer Phim']
@@ -79,13 +93,18 @@ const MovieDetailsPage = () => {
                     movie?.episodes[0].server_data
                     .slice(0, Math.min(visibleEps, movie?.episodes[0].server_data.length))
                     .map((mv, index) => (
-                      <li onClick={() => window.open(mv.link_embed)} key={index}>
+                      <li onClick={() => {
+                        handleNavigateEpisode(index);
+                      }} key={index}>
                         {index === movie?.movie.episode_total - 1 ? `${mv.name} END` : `Tập ${mv.name}`}
                       </li>
                     ))
                   ) : (
-                    movie?.episodes.map(sv => (
-                        <li onClick={() => {window.open(sv.server_data[0].link_embed)}}>{sv.server_name}</li>
+                    movie?.episodes.map((sv, index) => (
+                        <li onClick={() => {
+                          // window.open(sv.server_data[0].link_embed)
+                          handleNavigateServer(index)
+                        }}>{sv.server_name}</li>
                     ))  
                   )
                 }
@@ -100,7 +119,7 @@ const MovieDetailsPage = () => {
         setInfoDiv(          
         <div className = 'tomtat'>
           <h2>Tóm tắt</h2>
-          <p dangerouslySetInnerHTML={{__html: movie?.movie.content}}></p>
+          <p dangerouslySetInnerHTML={{__html: movie? movie?.movie.content : <></>}}></p>
         </div>)
         break;
       case 2:
@@ -108,16 +127,19 @@ const MovieDetailsPage = () => {
         break;    
       case 3:
         setInfoDiv(<div>
-          <YouTubeEmbed embedId={movie?.movie.trailer_url}/>
+          <YoutubeEmbed embedId={movie?.movie.trailer_url}/>
         </div>)
         break;
     }
-  }, [infoType, movie, movie?.movie.content])
+  }, [infoType, movie, movie?.movie.content, visibleEps])
   
+  // MARK: return
   return (
     <div className = 'detail-wrapper'>
 
-      <div className='detail-container'>
+    {
+      (type && ep) ?  (<MainVideo url={movie?.episodes[ep - 1].server_data[0].link_embed} data = {movie?.episodes}/>) : (
+        <div className='detail-container'>
         <div>
           <img src = {movie?.movie.thumb_url}></img>
         </div>
@@ -161,6 +183,9 @@ const MovieDetailsPage = () => {
 
         </div>
       </div>
+      )
+    }
+
     <hr/>
                   
     <div className='thongtin'>
