@@ -22,17 +22,17 @@
     background-color: black;
     margin-left: 1%;
     width: 98%;
-    height: 6vh;
+    height: fit-content;
     border-radius: 10px;
     overflow: hidden;
     display: flex;
     justify-content: space-between;
     >p:nth-child(1){
-        height: 100%;
-        width: 18%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
+        padding-block: 0.8%;
+        padding-inline: 1%;
+        min-width: 15%;
+        width: fit-content;
+        display: flex;align-items: center;justify-content: center;
         background-color:rgb(236, 114, 43);
         color: black;
     }
@@ -98,10 +98,15 @@
 .new-movie-container{
     margin-top: 2%;
     width: 97%;
-    height: 140px;
+    height: fit-content;
+    padding-bottom: 2% !important;
     display: flex;
     position: relative;
     /* overflow-y: visible !important; */
+    
+    .swiper-pagination{
+        transform: translateY(10px); 
+    }
     
     .swiper-pagination-bullet {
         background: white;
@@ -134,12 +139,11 @@
 
 .movie-card-wrapper >p{
     position: absolute;
-    z-index: 1000;
     top: 5px;
     left: -10px;
     border-radius: 2px;
-    width: 35px;
-    padding-inline: 2px;
+    width: fit-content;
+    padding-inline: 4px;
     background-color: rgb(6, 103, 239);
     color: white;
     text-align: center;

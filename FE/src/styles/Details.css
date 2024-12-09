@@ -1,6 +1,7 @@
 .detail-wrapper{
     color: white;
     width: 63%;
+    /* height: fit-content; */
     margin-left: 7%;
     margin-top: 1.5%;
     border-radius: 6px;
@@ -35,7 +36,7 @@
             font-style: italic;
         }
         >p:nth-child(3){
-            width: 25%;
+            width: fit-content;
             margin-top: 10px;
             background-color: rgb(64, 139, 234);
             padding-inline: 7px;
@@ -120,42 +121,6 @@
     padding-block: 1.5%;
 }
 
-.episodes{
-    width: 100%;
-    height: auto;
-    >h3{
-        margin-top: 3%;
-        height: 28%;
-        padding-left: 5%;
-    }
-    >ul{
-
-        width: 80%;
-        margin-left: 5%;
-        display: flex;
-        flex-wrap: wrap;
-        margin-bottom: 5vh;
-        /* justify-content: space-evenly; */
-        >li{
-            height: 1.8rem;
-            margin-top: 4px;
-            margin-left: 4px;
-            list-style-type: none;
-            background-color: rgb(64, 139, 234);
-            width: 16%;
-            font-size: 0.9rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-        >li:hover{
-            background-color: rgb(12, 109, 235);
-        }
-    }
-}
-
 .maybe-you-like{
     width: 92%;
     margin: 0 auto;
@@ -175,8 +140,8 @@
     align-items: center;
     justify-content: center;
     >iframe{
-        height: 100%;
         width: 100%;
+        aspect-ratio: 16/9;
     }
 }
 
@@ -184,12 +149,64 @@
 */
 .main-video{
     width: 90%;
-    height: 64vh;
     margin-inline: auto;
-    margin-top: 3%;
-    margin-bottom: 5%;
+    margin-block: 5%;
     >iframe{
-        height: 100%;
+        aspect-ratio: 16/9;
         width: 100%;
+    }
+}
+
+/*MARK: episodes 
+*/
+.episodes{
+    width: 100%;
+    padding-left: 4%;
+    li{
+        list-style-type: none;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    h3{
+        width: 100%;
+    }
+    ul{
+        margin-block: 2.5vh;
+    }
+}
+
+.server{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    >li{
+        margin-left: 8px;
+        padding: 4px 5px;
+        width: fit-content;
+        background-color:rgb(77, 82, 89);
+    }
+}
+
+.active-server{
+    background-color: rgb(196, 76, 7) !important;
+}
+
+.active-episode{
+    background-color: rgb(90, 82, 82) !important;
+}
+
+.episode{
+    width: 80%;
+    display: flex;
+    flex-wrap: wrap;
+    >li{
+        width: fit-content;
+        padding: 4px 5px;
+        background-color:rgb(64, 139, 234);
+        margin-left: 8px;
+        margin-top: 5px;
+    }
+    li:hover{
+        background-color: rgb(24, 114, 233) !important;
     }
 }

@@ -62,19 +62,17 @@ const Header = () => {
                         style={{transform: isDropped ? "rotateX(180deg)" : "rotateX(0)"}}>  
                       </i>
               </a>
-              <nav style={{height: isDropped ? '120px' : '0'}}>
-                <ul>
-                  <li onClick={() => {}}>Hành Động</li>
-                  <li>Kinh dị</li>
-                  <li>Phiêu lưu</li>
-                  <li>Hoạt hình</li>
-                  <li>Tình cảm</li>
-                  <li>Hài hước</li>
-                  <li>Lịch sử</li>
-                  <li>Khoa Học</li>
-                  <li>Viễn tưởng</li>
-                </ul>
-              </nav>
+              <div style={{height: isDropped ? '120px' : '0'}}>
+                  <p onClick={() => {}}>Hành Động</p>
+                  <p>Kinh dị</p>
+                  <p>Phiêu lưu</p>
+                  <p>Hoạt hình</p>
+                  <p>Tình cảm</p>
+                  <p>Hài hước</p>
+                  <p>Lịch sử</p>
+                  <p>Khoa Học</p>
+                  <p>Viễn tưởng</p>
+              </div>
             </li>
             <li>
               <a>Xem nhiều nhất</a>

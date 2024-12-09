@@ -11,23 +11,16 @@ import MainVideo from '../components/MainVideo';
 
 const MovieDetailsPage = () => {
 
-  const { slug } = useParams<{slug: string}>();
-  const { ep, type } = useParams();
-  
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [slug, ep])
+  const {slug, ep, sep } = useParams();
 
   const [movie, setMovie] = useState<MovieDetails>();
-  const [epTotal, setEpTotal] = useState<string>("0");
+  // const [epTotal, setEpTotal] = useState<string>("0");
   const [infoDiv, setInfoDiv] = useState<JSX.Element>(<></>)
   const [visibleEps, setVisibleEps] = useState<number>(11);
   const [mayLikeMovies, setMayLikeMovies] = useState<MovieDetails[]>([]);
 
   const navigate = useNavigate();
   const { allMovies } = useMovies();
-
-  useEffect(() => {console.log(ep, ' ', type)}, [ep, type])
 
   useEffect(() => {
 
@@ -44,13 +37,14 @@ const MovieDetailsPage = () => {
   useEffect(() => {
     console.log(movie);
     console.log(`https://www.youtube.com/embed/${movie?.movie.trailer_url}`)
-    let str = movie?.movie.episode_total, str2 = "";
-    for(let i = 0; i < str?.length; ++i){
-      if (str[i] >= '0' && str[i] <= '9') str2 = str[i] + str2;
-    }
-    setEpTotal(str2);
+    // eslint-disable-next-line prefer-const
+    let str = movie ? movie?.movie.episode_total : undefined, str2 = "";
+    if (str)
+      for(let i = 0; i < str?.length; ++i){
+        if (str[i] >= '0' && str[i] <= '9') str2 = str[i] + str2;
+      }
     if (movie){
-      const mayLikes = allMovies.filter((mv, _) => (
+      const mayLikes = allMovies.filter((mv) => (
         mv.movie.category.some((type) => 
           movie.movie.category.map(obj => obj.name).includes(type.name)
         )
@@ -63,12 +57,15 @@ const MovieDetailsPage = () => {
 
   // Eps and Server__________________________________
 
-  const handleNavigateServer = (index: number) => {
-      navigate(`/phim/${movie?.movie.slug}/server/${index + 1}`)
-  }
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    console.log(sep,' ' ,ep)
+  }, [ep, sep])
 
-  const handleNavigateEpisode = (index: number) => {
-    navigate(`/phim/${movie?.movie.slug}/episode/${index + 1.}`)
+  const [currentServer, setCurrentServer] = useState<number>(0);
+
+  const handleNavigateEpisode = (sv: number, ep: number) => {
+    navigate(`/phim/${movie?.movie.slug}/server/${sv}/episode/${ep}`)
   }
 
   const [infoType, setInfoType] = useState<number>(0);
@@ -77,41 +74,53 @@ const MovieDetailsPage = () => {
   const handleThongTin = (idx: number) => {
     setInfoType(idx)
   }
-  useEffect(() => {
-    console.log(visibleEps);
-  }, [visibleEps]); 
 
   useEffect(() => {
     switch(infoType){
       case 0:
         setInfoDiv(
             <div className='episodes'>
-              <h3>{movie?.episodes[0].server_data.length > 1 ? "Chọn tập phim" : "Chọn server"}</h3>
-              <ul>
+              <div className='episode-container'>
+
+                <ul className='server'>
+                <h3>Chọn server</h3>
+                  {
+                    movie?.episodes.map((sv, index) => (
+                      <li onClick={() => {
+                        setCurrentServer(index);
+                      }}
+                      className={`${index === currentServer ? 'active-server' : ''}`}
+                      >{sv.server_name}</li>
+                    ))
+                  }
+                </ul>
+
+                <ul className='episode'>
+                <h3>Chọn tập phim</h3>
                 {
-                  movie?.episodes[0].server_data.length > 1 ? (
-                    movie?.episodes[0].server_data
+                    movie?.episodes[currentServer].server_data
                     .slice(0, Math.min(visibleEps, movie?.episodes[0].server_data.length))
                     .map((mv, index) => (
                       <li onClick={() => {
-                        handleNavigateEpisode(index);
-                      }} key={index}>
-                        {index === movie?.movie.episode_total - 1 ? `${mv.name} END` : `Tập ${mv.name}`}
+                          handleNavigateEpisode(currentServer, index);
+                        }} 
+                        key={index}
+                        className = {`${index === Number(ep) ? 'active-episode' : ''}`}
+                        >
+                        {index === Number(movie?.movie.episode_total) - 1 ? `${mv.name} END` : `Tập ${mv.name}`}
                       </li>
                     ))
-                  ) : (
-                    movie?.episodes.map((sv, index) => (
-                        <li onClick={() => {
-                          // window.open(sv.server_data[0].link_embed)
-                          handleNavigateServer(index)
-                        }}>{sv.server_name}</li>
-                    ))  
-                  )
                 }
-                { movie?.episodes[0].server_data.length > 1 && visibleEps < movie?.episodes[0].server_data.length ? 
-                (<li onClick={() => {setVisibleEps(prev => prev + 12)}} style={{backgroundColor: 'grey'}}>More...</li>) 
-                : (<></>) }
-              </ul>
+                { 
+                  (movie?.episodes[0].server_data.length ?? 0) > 1 
+                    && visibleEps < (movie?.episodes[0].server_data.length ?? 0) ? 
+                  (<li onClick={() => {setVisibleEps(prev => prev + 12)}} 
+                       style={{backgroundColor: 'grey'}}>More...</li>) 
+                  : (<></>) 
+                }
+                </ul>
+
+              </div>
             </div>
         )
         break;
@@ -127,18 +136,21 @@ const MovieDetailsPage = () => {
         break;    
       case 3:
         setInfoDiv(<div>
-          <YoutubeEmbed embedId={movie?.movie.trailer_url}/>
+          <YoutubeEmbed embedId={movie?.movie.trailer_url} class={''}/>
         </div>)
         break;
     }
-  }, [infoType, movie, movie?.movie.content, visibleEps])
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [infoType, movie, movie?.movie.content, visibleEps, currentServer, ep])
   
   // MARK: return
   return (
     <div className = 'detail-wrapper'>
 
     {
-      (type && ep) ?  (<MainVideo url={movie?.episodes[ep - 1].server_data[0].link_embed} data = {movie?.episodes}/>) : (
+      (sep && ep) ?  
+        (<MainVideo url={movie?.episodes[Number(sep)].server_data[Number(ep)].link_embed} data = {movie?.episodes}/>) 
+        : (
         <div className='detail-container'>
         <div>
           <img src = {movie?.movie.thumb_url}></img>
@@ -150,7 +162,7 @@ const MovieDetailsPage = () => {
             <p>({movie?.movie.origin_name} {movie?.movie.year})</p>
             <p>
               {movie?.movie.status ? "FULL" : "NEW"} {" "}
-              {movie?.episodes[0].server_data.length  > 1 ? `${movie?.episodes[0].server_data.length }/${movie?.episodes[0].server_data.length }` : ""}
+              {(movie ? movie?.episodes[0].server_data.length : 0) > 1 ? `${movie?.episodes[0].server_data.length }/${movie?.episodes[0].server_data.length }` : ""}
               {" "}VIETSUB
             </p>
           </div>
@@ -164,7 +176,7 @@ const MovieDetailsPage = () => {
             <div>
               <div>
                 {Array(10).fill(0).map((_, index) => 
-                  (<i key={index} style={{color: index < Math.floor(movie?.movie.tmdb.vote_average) ? "yellow" : ""}} 
+                  (<i key={index} style={{color: index < Math.floor(Number(movie?.movie.tmdb.vote_average)) ? "yellow" : ""}} 
                       className='fa fa-star'></i>))}  
               </div>
               <p>Vote: {movie?.movie.tmdb.vote_count}</p>

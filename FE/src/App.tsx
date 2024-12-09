@@ -10,7 +10,6 @@ import { SkeletonTheme } from "react-loading-skeleton";
 import Footer from "./components/Footer";
 import SearchResult from "./pages/SearchResult";
 import MovieDetailsPage from "./pages/MovieDetailsPage";
-import MovieCarousel from "./components/MovieCarousel";
 
 function App() {
   const { allMovies, setAllMovies } = useMovies();
@@ -58,8 +57,7 @@ function App() {
                 }
               />
               <Route path="/phim/:slug" element={<><MovieDetailsPage /><TopMovies/></>} />
-              <Route path="/phim/:slug/:type/:ep" element={<><MovieDetailsPage /><TopMovies/></>}/>
-              <Route path="/phim/:slug/:type/:ep" element={<><MovieDetailsPage /><TopMovies/></>}/>
+              <Route path="/phim/:slug/server/:sep/episode/:ep" element={<><MovieDetailsPage /><TopMovies/></>}/>
             </Routes>
             <Footer />
           </div>

@@ -12,7 +12,7 @@ const Footer = () => {
 const divStyle: React.CSSProperties = {
     height: '10vh',
     width: '100%',
-    backgroundColor: 'black',
+    backgroundColor: 'rgb(21, 17, 17)',
     color: 'white',
     marginTop: '2%',
     display: 'flex',

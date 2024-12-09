@@ -88,30 +88,25 @@
 
 .movie-types{
     position: relative;
-    >nav{
-        overflow: hidden;
+    >div{
+        width: 90px;
+        overflow: scroll;
         position: absolute;
-        width: 300px;
         transition: all 0.3s ease;
         left: 80%;
         top: 110%;
-        background-color: grey;
-        ul{
-            display: grid;
+        height: 10vh;
+        >p{
+            display: flex;align-items: center;justify-content: center;
+            background-color: rgb(84, 84, 84);
             width: 100%;
-            grid-template-columns: 33% 33% 33%;
-            >li{
-                background-color: grey;
-                width: 100%;
-                height: 40px;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-            }
-            >li:hover{
-                color: white;
-                background-color: rgb(71, 70, 70);
-            }
+            height: 40px;
+            font-size: 0.9rem;
+            border-bottom:1px solid black;
+        }
+        >p:hover{
+            color: white;
+            background-color: rgb(52, 51, 51);
         }
     }
 }

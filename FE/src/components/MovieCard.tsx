@@ -6,7 +6,8 @@ import { PiMonitorPlayLight } from 'react-icons/pi'
 const MovieCard = (props: {movie: MovieDetails}) => {
   const navigate = useNavigate();
   return (
-  <div key = {props.movie.movie._id} onClick={() => { navigate(`/phim/${props.movie.movie.slug}`)}} style = {{width: '22.5%', height: '330px', position: 'relative'}} className='movie-card-wrapper'>
+  <div key = {props.movie.movie._id} onClick={() => { navigate(`/phim/${props.movie.movie.slug}`)}} 
+       style = {{width: '22.5%', height: '330px', position: 'relative'}} className='movie-card-wrapper'>
     <div title={props.movie.movie.name} key = {props.movie.movie._id} className = "movie-card" 
         style={{backgroundImage: `url(${props.movie.movie.thumb_url})`}}>
 
