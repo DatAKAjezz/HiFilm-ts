@@ -8,6 +8,9 @@ import MovieCarousel from '../components/MovieCarousel';
 import { useMovies } from '../context/MovieContext';
 import YoutubeEmbed from '../components/YoutubeEmbed';
 import MainVideo from '../components/MainVideo';
+import { RxTrackNext, RxTrackPrevious } from 'react-icons/rx';
+import { BsMenuButtonWideFill } from 'react-icons/bs';
+import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
 
 const MovieDetailsPage = () => {
 
@@ -132,7 +135,7 @@ const MovieDetailsPage = () => {
         </div>)
         break;
       case 2:
-        setInfoDiv(<div style ={{textAlign: 'center'}}>lười làm..<main></main></div>)
+        setInfoDiv(<div style ={{textAlign: 'center'}}>lười làm..</div>)
         break;    
       case 3:
         setInfoDiv(<div>
@@ -143,13 +146,78 @@ const MovieDetailsPage = () => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [infoType, movie, movie?.movie.content, visibleEps, currentServer, ep])
   
+
+  const handleNext = () => {
+    if (Number(ep) < ( movie?.episodes[0].server_data.length ?? 0)){
+      navigate(`/phim/${movie?.movie.slug}/server/${currentServer}/episode/${Number(ep) + 1}`)
+    }
+  }
+
+  const handlePrevious = () => {
+    if (Number(ep) > 0){
+      navigate(`/phim/${movie?.movie.slug}/server/${currentServer}/episode/${Number(ep) - 1}`)
+    }
+  }
+
+
+  const handleKeyDown = (e: KeyboardEvent) => {
+    e.preventDefault();
+    if (e.key === 'ArrowRight' && e.shiftKey && Number(ep) + 1 != movie?.episodes[0].server_data.length) {
+        console.log('next')
+        handleNext();
+    }  
+    if (e.key === 'ArrowLeft' && e.shiftKey && Number(ep) != 0 && movie?.episodes[0].server_data.length != 1) 
+      {
+        console.log('prev')
+        handlePrevious();
+      }
+    }
+  
+  useEffect(() => {
+    const handleKeyEvent = (e: KeyboardEvent) => handleKeyDown(e);
+    window.addEventListener('keydown', handleKeyEvent);
+  
+    return () => {
+      window.removeEventListener('keydown', handleKeyEvent);
+    };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [handleNext, handlePrevious]);
+  
   // MARK: return
   return (
     <div className = 'detail-wrapper'>
 
     {
       (sep && ep) ?  
-        (<MainVideo url={movie?.episodes[Number(sep)].server_data[Number(ep)].link_embed} data = {movie?.episodes}/>) 
+        (<>
+          <MainVideo url={movie?.episodes[Number(sep)].server_data[Number(ep)].link_embed} data = {movie?.episodes}/>
+          <div className='video-button'>
+            <div>
+              <RxTrackPrevious 
+                className={`con ${Number(ep) == 0 || movie?.episodes[0].server_data.length == 1 ? 'inactive' : ''}`} 
+                onClick={handlePrevious}
+              />
+              <p style={{color: Number(ep) == 0 || movie?.episodes[0].server_data.length == 1 ? 'grey' : ''}}>
+                Shift +&nbsp;<FaArrowLeft />
+              </p> 
+            </div>
+            <BsMenuButtonWideFill 
+              className='con'
+              onClick={() => {
+                navigate(`/phim/${movie?.movie.slug}`)
+              }}
+            /> 
+            <div>
+              <RxTrackNext 
+                className={`con ${Number(ep) == (movie?.episodes[0].server_data.length ?? 0) - 1 ? 'inactive' : ''}`} 
+                onClick={handleNext}
+              />  
+              <p style={{color: Number(ep) == (movie?.episodes[0].server_data.length ?? 0) - 1 ? 'grey' : ''}}>
+                {'Shift +'}&nbsp;<FaArrowRight/>
+              </p> 
+            </div>
+          </div> 
+        </>) 
         : (
         <div className='detail-container'>
         <div>

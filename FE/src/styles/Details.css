@@ -76,7 +76,8 @@
         display: flex;
         margin-left: 1%;
         >p{
-            width: 15%;
+            width: fit-content;
+            margin-left: 10px;
             flex-wrap: wrap;
         }
     }
@@ -150,11 +151,37 @@
 .main-video{
     width: 90%;
     margin-inline: auto;
-    margin-block: 5%;
+    margin-top: 5%;
+    margin-bottom: 3.2%;
     >iframe{
         aspect-ratio: 16/9;
         width: 100%;
     }
+}
+
+.video-button{
+    width: 40%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    >div{
+        display: flex;
+        align-items: center;justify-content: center;
+        flex-direction: column;
+        width: fit-content;
+        >p{
+            display: flex;
+            align-items: center;
+        }
+    }
+    .con{
+        font-size: 2rem;
+        cursor: pointer;
+    }
+}
+
+.inactive{
+    color: grey;
 }
 
 /*MARK: episodes 
@@ -169,6 +196,7 @@
     }
     h3{
         width: 100%;
+        margin-bottom: 1%;
     }
     ul{
         margin-block: 2.5vh;
@@ -184,12 +212,14 @@
         padding: 4px 5px;
         width: fit-content;
         background-color:rgb(77, 82, 89);
+        border-radius: 2px;
     }
 }
 
 .active-server{
-    background-color: rgb(196, 76, 7) !important;
-}
+    background-color: #0093E9;
+    background-image: linear-gradient(160deg, #0093E9 0%, #80D0C7 100%);
+}    
 
 .active-episode{
     background-color: rgb(90, 82, 82) !important;
@@ -205,6 +235,7 @@
         background-color:rgb(64, 139, 234);
         margin-left: 8px;
         margin-top: 5px;
+        border-radius: 2px;
     }
     li:hover{
         background-color: rgb(24, 114, 233) !important;
