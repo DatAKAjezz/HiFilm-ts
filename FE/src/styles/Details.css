@@ -184,6 +184,12 @@
     color: grey;
 }
 
+.episode-name{
+    width: 86%;
+    margin: 0 auto;
+    margin-bottom: 0.5rem;
+}
+
 /*MARK: episodes 
 */
 .episodes{

@@ -98,7 +98,7 @@ const SearchResult = () => {
                 </div>
               ))
             ): (filteredList.length === 0 ? (<div className = "nothing-found">Bruh! Empty ahh List💀</div>):(filteredList?.map((Obj2,index) => {
-                      if (index > 11) return;
+                      // if (index > 11) return;
                       return (<MovieCard movie = {Obj2}/>)
                 })))
           }

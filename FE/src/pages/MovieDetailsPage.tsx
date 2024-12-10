@@ -161,6 +161,8 @@ const MovieDetailsPage = () => {
 
 
   const handleKeyDown = (e: KeyboardEvent) => {
+    if ((e.target as HTMLElement).tagName === "INPUT" || 
+         (e.target as HTMLElement).tagName === "TEXTAREA") return;
     e.preventDefault();
     if (e.key === 'ArrowRight' && e.shiftKey && Number(ep) + 1 != movie?.episodes[0].server_data.length) {
         console.log('next')
@@ -183,6 +185,8 @@ const MovieDetailsPage = () => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [handleNext, handlePrevious]);
   
+  
+
   // MARK: return
   return (
     <div className = 'detail-wrapper'>
@@ -191,6 +195,7 @@ const MovieDetailsPage = () => {
       (sep && ep) ?  
         (<>
           <MainVideo url={movie?.episodes[Number(sep)].server_data[Number(ep)].link_embed} data = {movie?.episodes}/>
+          <p className='episode-name'>{movie?.movie.name}: {`Tập ${movie?.episodes[Number(sep)].server_data[Number(ep)].name }`}</p>
           <div className='video-button'>
             <div>
               <RxTrackPrevious 
@@ -247,7 +252,9 @@ const MovieDetailsPage = () => {
                   (<i key={index} style={{color: index < Math.floor(Number(movie?.movie.tmdb.vote_average)) ? "yellow" : ""}} 
                       className='fa fa-star'></i>))}  
               </div>
-              <p>Vote: {movie?.movie.tmdb.vote_count}</p>
+              <p>Vote: {movie?.movie.tmdb.vote_count}  &nbsp;| &nbsp;<i className="fa-solid fa-eye"></i>&nbsp;
+                       {movie?.movie.view}
+              </p>
             </div>
           </div>
           

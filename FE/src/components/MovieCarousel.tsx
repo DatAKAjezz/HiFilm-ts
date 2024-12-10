@@ -20,7 +20,7 @@ const MovieCarousel = (props: {isInDetails: boolean, data: MovieDetails[]}) => {
 
   return (
     <div className={`new-movie-stage ${props.isInDetails ? 'details-carousel' : ''}`}  >
-      {!props.isInDetails ? <HeadContainer msg="Phim Mới Cập Nhật" class="" /> : <></> }
+      {!props.isInDetails ? <HeadContainer msg="Phim Mới" class="" /> : <></> }
       <Swiper
         modules={[Navigation, Pagination, Autoplay]}
         slidesPerView={4}
