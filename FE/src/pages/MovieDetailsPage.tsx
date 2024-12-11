@@ -11,10 +11,13 @@ import MainVideo from '../components/MainVideo';
 import { RxTrackNext, RxTrackPrevious } from 'react-icons/rx';
 import { BsMenuButtonWideFill } from 'react-icons/bs';
 import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
+import BreadScrumb from '../components/BreadScrumb';
 
 const MovieDetailsPage = () => {
 
   const {slug, ep, sep } = useParams();
+  useEffect(() => {console.log(ep, sep, slug)}, [slug, ep, sep])
+
 
   const [movie, setMovie] = useState<MovieDetails>();
   // const [epTotal, setEpTotal] = useState<string>("0");
@@ -68,7 +71,7 @@ const MovieDetailsPage = () => {
   const [currentServer, setCurrentServer] = useState<number>(0);
 
   const handleNavigateEpisode = (sv: number, ep: number) => {
-    navigate(`/phim/${movie?.movie.slug}/server/${sv}/episode/${ep}`)
+    navigate(`/${movie?.movie.slug}/${ep}/${sv}`)
   }
 
   const [infoType, setInfoType] = useState<number>(0);
@@ -149,13 +152,13 @@ const MovieDetailsPage = () => {
 
   const handleNext = () => {
     if (Number(ep) < ( movie?.episodes[0].server_data.length ?? 0)){
-      navigate(`/phim/${movie?.movie.slug}/server/${currentServer}/episode/${Number(ep) + 1}`)
+      navigate(`/${movie?.movie.slug}/${Number(ep) + 1}/${currentServer}`)
     }
   }
 
   const handlePrevious = () => {
     if (Number(ep) > 0){
-      navigate(`/phim/${movie?.movie.slug}/server/${currentServer}/episode/${Number(ep) - 1}`)
+      navigate(`/${movie?.movie.slug}/${Number(ep) - 1}/${currentServer}`)
     }
   }
 
@@ -183,14 +186,12 @@ const MovieDetailsPage = () => {
       window.removeEventListener('keydown', handleKeyEvent);
     };
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [handleNext, handlePrevious]);
-  
-  
+  }, [handleNext, handlePrevious]);  
 
   // MARK: return
   return (
     <div className = 'detail-wrapper'>
-
+    <BreadScrumb/>
     {
       (sep && ep) ?  
         (<>
@@ -209,7 +210,7 @@ const MovieDetailsPage = () => {
             <BsMenuButtonWideFill 
               className='con'
               onClick={() => {
-                navigate(`/phim/${movie?.movie.slug}`)
+                navigate(`/${movie?.movie.slug}`)
               }}
             /> 
             <div>

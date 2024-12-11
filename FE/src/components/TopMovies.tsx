@@ -76,7 +76,7 @@ const TopMovies = () => {
             .map((Obj,idx) => (
               <div key = {idx} className="top-movie-card" 
                    title={Obj.movie.name} 
-                   onClick={() => {navigate(`/phim/${Obj.movie.slug}`)}}
+                   onClick={() => {navigate(`/${Obj.movie.slug}`)}}
               >
                 <img src={Obj.movie.poster_url}></img>
                 <div>
@@ -91,10 +91,10 @@ const TopMovies = () => {
                       {Obj.movie.tmdb.vote_count}
                       <br />
                       <br />
-                      <i
-                        className="fa-solid fa-eye"
-                        style={{ marginRight: "6px" }}
-                      ></i>
+                        <i
+                          className="fa-solid fa-eye"
+                          style={{ marginRight: "6px" }}
+                        ></i>
                       {Obj.movie.view} {Obj.movie.view > 1 ? "views" : "view"}
                     </p>
                   </div>
