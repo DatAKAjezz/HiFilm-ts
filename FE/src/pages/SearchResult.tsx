@@ -20,9 +20,7 @@ const SearchResult = () => {
 
     // const navigate = useNavigate();
 
-    const query = searchParam.get("q") || "";
-
-    
+    const query = searchParam.get("q") || "";    
 
     useEffect(() => {
       const filter = allMovies.filter((movie) => (

@@ -1,7 +1,7 @@
 import express from 'express';
 import axios from 'axios';
 import cors from 'cors';
-import { Movie, MovieDetails } from './types';
+import { Movie, MovieDetails } from './types/types';
 
 const app = express();
 const port = 3000;

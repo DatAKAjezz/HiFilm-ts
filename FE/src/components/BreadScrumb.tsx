@@ -27,7 +27,7 @@ const BreadScrumb: React.FC = ({movie}: {movie?: MovieDetails}) => {
 
     if (ep && sep && items.length > 2) {
         items[items.length - 2] = {
-          label: `Tập ${items[items.length - 2].label} _ Server ${items[items.length - 1].label}`,
+          label: `Tập ${items[items.length - 2].label} | Server ${items[items.length - 1].label}`,
           path: items[items.length - 1].path
       }
       items.pop();
