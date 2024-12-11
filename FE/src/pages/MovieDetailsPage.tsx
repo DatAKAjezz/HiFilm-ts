@@ -191,7 +191,7 @@ const MovieDetailsPage = () => {
   // MARK: return
   return (
     <div className = 'detail-wrapper'>
-    <BreadScrumb/>
+    <BreadScrumb movie = {movie}/>
     {
       (sep && ep) ?  
         (<>

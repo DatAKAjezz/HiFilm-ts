@@ -4,3 +4,11 @@
     width: 90%;
     margin: 1% auto;
 }
+
+.blue{
+    color: rgb(26, 117, 229);
+}
+.abc{
+    display: flex;
+    align-items: center;
+}

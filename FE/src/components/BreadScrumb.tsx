@@ -1,13 +1,15 @@
 import React, { useMemo } from 'react';
 import { Link, useLocation, useParams } from "react-router-dom";
 import "../styles/BreadScrumb.css";
+import { MdOutlineNavigateNext } from 'react-icons/md';
+import { MovieDetails } from '../services/types';
 
 interface BreadcrumbItem {
-  label: string;
+  label?: string;
   path: string;
 }
 
-const BreadScrumb: React.FC = () => {
+const BreadScrumb: React.FC = ({movie}: {movie?: MovieDetails}) => {
   const location = useLocation();
   const { ep, sep } = useParams();
 
@@ -19,34 +21,36 @@ const BreadScrumb: React.FC = () => {
       path: `/${pathnames.slice(0, index + 1).join('/')}`
     }));
 
-    if (ep && sep) {
-      if (items.length >= 2) {
-        items[items.length - 2] = {
-          label: `Tập ${items[items.length - 1].label} _ Server ${items[items.length - 2].label}`,
-          path: items[items.length - 1].path
-        };
-      }
+    if (items.length > 0){
+        items[0].label = movie?.movie.name;
     }
-    items.pop();
+
+    if (ep && sep && items.length > 2) {
+        items[items.length - 2] = {
+          label: `Tập ${items[items.length - 2].label} _ Server ${items[items.length - 1].label}`,
+          path: items[items.length - 1].path
+      }
+      items.pop();
+    }
 
     return items;
-  }, [location.pathname, ep, sep]);
+  }, [location.pathname, ep, sep, movie?.movie.name]);
 
   return (
     <nav className="bread-scrumb">
-      <Link to="/" style={{ textDecoration: "none", color: "white" }}>
+      <Link to="/" style={{ textDecoration: "none", color: "rgb(67, 173, 235)" }}>
         Trang chủ
       </Link>
       {breadcrumbs.map((crumb, index) => (
-        <span key={index}>
-          {" > "}
+        <p className='abc' key={index}>
+          &nbsp;<MdOutlineNavigateNext/>&nbsp;
           <Link 
-            style={{ textDecoration: "none", color: index != breadcrumbs.length - 1 ? 'cyan' : "grey" }} 
+            style={{ textDecoration: "none", color: index != breadcrumbs.length - 1 ? 'rgb(67, 173, 235)' : "grey" }} 
             to={crumb.path}
           >
             {crumb.label}
           </Link>
-        </span>
+        </p>
       ))}
     </nav>
   );

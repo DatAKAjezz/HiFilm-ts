@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { useNavigate, useSearchParams } from "react-router-dom"
+import { useSearchParams } from "react-router-dom"
 import { useMovies } from "../context/MovieContext"
 import "../styles/Home.css"
 import "../styles/Search.css"
@@ -97,7 +97,7 @@ const SearchResult = () => {
                   </div>
                 </div>
               ))
-            ): (filteredList.length === 0 ? (<div className = "nothing-found">Bruh! Empty ahh List💀</div>):(filteredList?.map((Obj2,index) => {
+            ): (filteredList.length === 0 ? (<div className = "nothing-found">Bruh! Empty ahh List💀</div>):(filteredList?.map((Obj2) => {
                       // if (index > 11) return;
                       return (<MovieCard movie = {Obj2}/>)
                 })))
