@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import "./App.css";
 import Header from "./components/Header";
 import Home from "./pages/Home";
@@ -18,21 +18,13 @@ function App() {
     const fetchAllMovies = async () => {
       try {
         const res = await axios.get("http://localhost:3000/api/movies");
-        setAllMovies(res.data.data);
-        let st = new Set();
-        res.data.data.forEach(movie => {
-          movie.movie.country.forEach(ct => {
-            st.add(ct.name);
-          })
-        })
-
-        console.log(st);
+        setAllMovies(res.data.data.allMovieDetails);
       } catch (err) {
         console.log("Error fetching all movies: ", err);
       }
     };
     fetchAllMovies();
-  }, []);
+  }, [setAllMovies]);
 
   useEffect(() => {
     console.log("Updated movies:", allMovies);

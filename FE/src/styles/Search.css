@@ -7,9 +7,6 @@
     margin-top: 2.2%;
 }
 
-.active-type{
-    background-color: rgb(36, 240, 111);
-}
 .nothing-found{
     color: white;
     height: 40vh;
@@ -18,3 +15,36 @@
     justify-content: center;
 }
 
+.block-search{
+    display: flex;
+    width: 85%;
+    margin-left: 10%;
+    margin-block: 2%;
+    justify-content: space-between;
+    >div{
+        width: 80%;
+        display: flex;
+        justify-content: space-evenly;
+        >select{
+            width: 19%;
+        }
+    }
+}
+
+#search-button{
+    width: 15%;
+    background-color: rgb(41, 121, 233);
+    border-radius: 4px;
+    display: flex;align-items: center;justify-content: center;
+    color: white;
+    height: 2rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+#search-button:hover{
+    background-color: rgb(14, 98, 215);
+    transform: scale(1.05);
+}
+#search-button:active{
+    transform: scale(1.0);
+}
