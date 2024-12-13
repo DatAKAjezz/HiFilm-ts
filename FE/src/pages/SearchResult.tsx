@@ -16,7 +16,6 @@ const SearchResult = () => {
     const [filteredList, setFilteredList] = useState<MovieDetails[]>([]);
     const [filteredList2, setFilteredList2] = useState<MovieDetails[]>([]);
     const [isLoading, setIsLoading] = useState<boolean>(true);
-    const [typeOfSearch, setTypeOfSearch] = useState<number>(0);
 
     // const navigate = useNavigate();
 
@@ -30,57 +29,91 @@ const SearchResult = () => {
       setFilteredList(filter);
       setFilteredList2(filter);
       setIsLoading(false);
-      setTypeOfSearch(0);
-      console.log("Filter 1: ", filter);
     }, [query, allMovies])
 
-    const handleTypeSearch = (idx: number) => {
-      
-      let filter: MovieDetails[] = [];
-
-      switch (idx){
-        case 1:
-          setTypeOfSearch(1)
-          filter = filteredList2.filter((Obj) => (Obj.movie.chieurap === true));
-          break;
-        case 2:
-          setTypeOfSearch(2)
-          filter = filteredList2.filter((Obj) => (Obj.movie.episode_total > "1"));
-          break;
-        case 3:
-          setTypeOfSearch(3)
-          filter = filteredList2.filter((Obj) => (Obj.movie.episode_total == "1"));
-          break;
-        case 69:
-          setTypeOfSearch(69);
-          filter = filteredList2;
-          break;
-        default: setTypeOfSearch(0);
-      }
-
-      console.log("Filter: ", filter);
-      setFilteredList(filter);
-    }
+  const typePhim = ['Chiếu rạp', 'Phim Lẻ', 'Phim bộ'];
+  const genres = [
+    "Chính kịch",
+    "Bí ẩn",
+    "Tình Cảm",
+    "Tâm Lý",
+    "Gia Đình",
+    "Âm Nhạc",
+    "Hài Hước",
+    "Võ Thuật",
+    "Cổ Trang",
+    "Viễn Tưởng",
+    "Khoa Học",
+    "Hành Động",
+    "Hình Sự",
+    "Phiêu Lưu",
+    "Học Đường",
+    "Thần Thoại",
+    "Chiến Tranh",
+    "Kinh Dị",
+    "Tài Liệu",
+    "Phim 18+",
+    "Thể Thao",
+    "Kinh Điển"
+  ];
+  const years = [
+    2024, 2023,2022, 2021, 2020, 2019, 2018, 2017, 2016, 2015, 2014, 2013,
+    2012, 2011, 2010, 2009, 2008, 2007, 2006, 2005, 2004, 2003,
+    2002, 2001, 2000, 1999, 1998, 1997, 1996, 1995, 1994, 1993,
+    1992, 1991, 1990, 1989, 1988, 1987, 1986, 1985, 1984, 1983,
+    1982, 1981, 1980, 1979, 1978, 1977, 1976, 1975, 1974, 1973,
+    1972, 1971, 1970, 1969, 1968, 1967, 1966, 1965, 1964, 1963,
+    1962, 1961, 1960, 1959, 1958, 1957, 1956, 1955, 1954, 1953,
+    1952, 1951, 1950, 1949, 1948, 1947, 1946, 1945, 1944, 1943,
+    1942, 1941, 1940, 1939, 1938, 1937, 1936, 1934, 1933, 1932,
+    1931, 1930, 1928, 1925, 1924, 1923, 1921, 1920, 1918, 1914
+  ];
+  const countries = [
+    "Âu Mỹ", "Argentina", "Anh", "Ả Rập Xê Út", "Ấn Độ", "Ba lan",
+    "Bỉ", "Bồ Đào Nha", "Brazil", "Canada", "Chile", "Colombia",
+    "Đài Loan", "Đan Mạch", "Đức", "Hà Lan", "Hàn Quốc", "Hồng Kông",
+    "Hy Lạp", "Indonesia", "Ireland", "Malaysia", "Mexico", "Nam Phi",
+    "Na Uy", "Nga", "Nigeria", "Pháp", "Phần Lan", "Philippines",
+    "Quốc Gia Khác", "Singapore", "Tây Ban Nha", "Thái Lan", 
+    "Thổ Nhĩ Kỳ", "Thụy Điển", "Thụy Sĩ", "UAE", "Ukraina", "Úc", 
+    "Việt Nam"
+  ];
+  
+  
 
   return (
     <div className = 'home-container'>
       <HeadContainer msg = {`Tìm Kiếm`} class = "search-head"/>
-      <div className="filter-wrapper">
-
-        <div>
-          <p>Xếp theo </p>
-          <p>Lọc theo </p>  
-        </div>
-        <div className = 'filter'>
-          <button>View</button>
-          <button>Vote</button>
-          <button>Rate</button>
-          <button>Year</button>
-          <button className={typeOfSearch == 1 ? "active-type" : ""} onClick={() => {handleTypeSearch(1)}}>Chiếu rạp</button>
-          <button className={typeOfSearch == 2 ? "active-type" : ""} onClick={() => {handleTypeSearch(2)}}>Phim bộ</button>
-          <button className={typeOfSearch == 3 ? "active-type" : ""} onClick={() => {handleTypeSearch(3)}}>Phim lẻ</button>
-          <button style = {{backgroundColor: "orange"}}onClick={() => {handleTypeSearch(69)}}>Clear</button>
-        </div>
+      <div className="block-search">
+        <p>Lọc theo</p>
+        <select>
+          {
+            typePhim.map(el => (
+              <option>{el}</option>
+            ))
+          }
+        </select>
+        <select>
+          {
+            genres.map(el => (
+              <option>{el}</option>
+            ))
+          }
+        </select>
+        <select>
+          {
+            countries.map(el => (
+              <option>{el}</option>
+            ))
+          }
+        </select>
+        <select>
+          {
+            years.map(el => (
+              <option>{el}</option>
+            ))
+          }
+        </select>
       </div>
       <div className = 'phim-container'>
         <div className="home-movie-container">
@@ -95,8 +128,9 @@ const SearchResult = () => {
                   </div>
                 </div>
               ))
-            ): (filteredList.length === 0 ? (<div className = "nothing-found">Bruh! Empty ahh List💀</div>):(filteredList?.map((Obj2) => {
-                      // if (index > 11) return;
+            ): (filteredList.length === 0 ? (<div className = "nothing-found">Nga! Empty ahh List💀</div>)
+                      :(filteredList?.map((Obj2, index) => {
+                      if (index > 11) return;
                       return (<MovieCard movie = {Obj2}/>)
                 })))
           }

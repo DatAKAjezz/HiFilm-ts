@@ -9,7 +9,12 @@ interface BreadcrumbItem {
   path: string;
 }
 
-const BreadScrumb: React.FC = ({movie}: {movie?: MovieDetails}) => {
+interface MovieDetailsProps {
+  movie: MovieDetails | undefined;
+}
+
+
+const BreadScrumb: React.FC<MovieDetailsProps> = ({movie}: {movie?: MovieDetails}) => {
   const location = useLocation();
   const { ep, sep } = useParams();
 
