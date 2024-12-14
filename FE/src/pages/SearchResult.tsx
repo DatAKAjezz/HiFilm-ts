@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { useSearchParams } from "react-router-dom"
+import { replace, useSearchParams } from "react-router-dom"
 import { useMovies } from "../context/MovieContext"
 import "../styles/Home.css"
 import "../styles/Search.css"
@@ -8,6 +8,7 @@ import { MovieDetails } from "../services/types"
 import { useEffect, useState } from "react"
 import Skeleton from "react-loading-skeleton"
 import MovieCard from "../components/MovieCard"
+import { useNavigate } from "react-router-dom"
 
 const SearchResult = () => {
 
@@ -24,7 +25,18 @@ const SearchResult = () => {
       country: "",
       year: "",
     });
-    // const navigate = useNavigate();
+    
+    useEffect(() => {
+      setFilters({
+        sort: searchParam.get("sort") || "",
+        type: searchParam.get("type") || "",
+        genre: searchParam.get("genre") || "",
+        country: searchParam.get("country") || "",
+        year: searchParam.get("year") || "",
+      });
+    }, [searchParam]);
+    
+    const navigate = useNavigate();
 
     const query = searchParam.get("q") || "";    
 
@@ -88,7 +100,7 @@ const SearchResult = () => {
       "Bỉ", "Bồ Đào Nha", "Brazil", "Canada", "Chile", "Colombia",
       "Đài Loan", "Đan Mạch", "Đức", "Hà Lan", "Hàn Quốc", "Hồng Kông",
       "Hy Lạp", "Indonesia", "Ireland", "Malaysia", "Mexico", "Nam Phi",
-      "Na Uy", "Nga", "Nigeria", "Pháp", "Phần Lan", "Philippines",
+      "Na Uy", "Nga", "Nhật Bản", "Nigeria", "Pháp", "Phần Lan", "Philippines",
       "Quốc Gia Khác", "Singapore", "Tây Ban Nha", "Thái Lan", 
       "Thổ Nhĩ Kỳ", "Thụy Điển", "Thụy Sĩ", "UAE", "Ukraina", "Úc", 
       "Việt Nam"
@@ -114,56 +126,71 @@ const SearchResult = () => {
   useEffect(() => {console.log(filters)}, [filters])
 
   const handleSearch = () => {
-    let newList = [...filteredList]; 
-
-    switch (filters.type){
-      case 'Chiếu rạp': 
-        newList = newList.filter(movie => movie.movie.chieurap == true)
-        break;
-      case 'Phim lẻ':
-        newList = newList.filter(movie => movie.movie.type == 'single')
-        break;
-      case 'Phim bộ':
-        newList = newList.filter(movie => movie.movie.type == 'series' || movie.movie.type == 'tv')
-        break;
-      case 'Hoạt hình':
-        newList = newList.filter(movie => movie.movie.type == 'hoathinh')
-        break;
-    }
+    let newList = [...filteredList];
   
-    switch (filters.sort) {
-      case 'Lượt xem':
-        newList = newList.sort((a, b) => b.movie.view - a.movie.view);
+    switch (filters.type) {
+      case "Chiếu rạp":
+        newList = newList.filter((movie) => movie.movie.chieurap === true);
         break;
-      case 'Năm':
-        newList = newList.sort((a, b) => b.movie.year - a.movie.year);
+      case "Phim lẻ":
+        newList = newList.filter((movie) => movie.movie.type === "single");
         break;
-      case 'Vote':
-        newList = newList.sort((a, b) => b.movie.tmdb.vote_count - a.movie.tmdb.vote_count);
+      case "Phim bộ":
+        newList = newList.filter(
+          (movie) => movie.movie.type === "series" || movie.movie.type === "tv"
+        );
+        break;
+      case "Hoạt hình":
+        newList = newList.filter((movie) => movie.movie.type === "hoathinh");
         break;
       default:
         break;
     }
   
-    if (filters.genre) {
-      newList = newList.filter(movie => movie.movie.category.some(gen => gen.name == filters.genre));
+    switch (filters.sort) {
+      case "Lượt xem":
+        newList = newList.sort((a, b) => b.movie.view - a.movie.view);
+        break;
+      case "Năm":
+        newList = newList.sort((a, b) => b.movie.year - a.movie.year);
+        break;
+      case "Vote":
+        newList = newList.sort((a, b) => b.movie.tmdb.vote_count - a.movie.tmdb.vote_count);
+        break;
+      case "Đánh giá":
+        newList = newList.sort((a, b) => b.movie.tmdb.vote_average - a.movie.tmdb.vote_average);
+        break;
+      default:
+        break;
     }
-    
-    if (filters.country) {
-      newList = newList.filter(movie => 
-        movie.movie.country.some(ct => ct.name === filters.country)
+  
+    if (filters.genre !== "") {
+      newList = newList.filter((movie) =>
+        movie.movie.category.some((gen) => gen.name === filters.genre)
       );
     }
   
-    if (filters.year) {
-      newList = newList.filter(movie => movie.movie.year === Number(filters.year));
+    if (filters.country !== "") {
+      newList = newList.filter((movie) =>
+        movie.movie.country.some((ct) => ct.name === filters.country)
+      );
+    }
+  
+    if (filters.year !== "") {
+      newList = newList.filter((movie) => movie.movie.year === Number(filters.year));
     }
   
     setFilteredList2(newList);
+  
+    // Điều hướng url moi
+    const params = new URLSearchParams({
+      q: query,
+      ...filters,
+    }).toString();
+  
+    navigate(`/search?${params}`, {replace: false});
   };
   
-
-
 
   return (
     <div className = 'home-container'>

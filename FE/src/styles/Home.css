@@ -18,6 +18,8 @@
     flex-wrap: wrap;
 }
 
+/* MARK: head container */
+
 .head-of-container{
     background-color: black;
     margin-left: 1%;
@@ -33,7 +35,7 @@
         min-width: 15%;
         width: fit-content;
         display: flex;align-items: center;justify-content: center;
-        background-color:rgb(236, 114, 43);
+        background-color:rgb(4, 216, 149);
         color: black;
     }
     >p:nth-child(2){
