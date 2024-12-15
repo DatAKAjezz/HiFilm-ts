@@ -6,17 +6,20 @@ import MovieCarousel from '../components/MovieCarousel';
 import Skeleton from 'react-loading-skeleton';
 import { useMovies } from '../context/MovieContext';
 import { getMovieDetailsWithPage } from '../services/API';
+import { useNavigate } from 'react-router-dom';
 
-export const HeadContainer = (props: {msg:string, class: string}) => {
-  return (
+export const HeadContainer = (props: {handle, msg:string, class: string}) => {
+  return (  
     <div className = {`head-of-container ${props.class}`}>
       <p>{props.msg}</p>
-      <p>Xem thêm</p>
+      <p onClick={props?.handle}>Xem thêm</p>
     </div>
   )
 }
 
 const Home = () => {
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -55,15 +58,29 @@ const Home = () => {
     fetchMovies();
   }, [allMovies]);
 
+  const handleNavigate = (type: string) => {
+    const filters = {
+      q: "",
+      type,
+      genre: "",
+      country: "",
+      year: "",
+      isNavigated: "1"
+    };
+
+    const queryString = new URLSearchParams(filters).toString();
+    navigate(`/search?${queryString}`);
+  };
+
   return (
     <div className = 'home-container'>
-      <MovieCarousel  data = {newMovies.slice(0, 5)}  isInDetails = {false}/>
+      <MovieCarousel data = {newMovies.slice(0, 5)}  isInDetails = {false}/>
 
       {/* MARK: chieu rap
        */}
 
       <div className = 'phim-container'>
-        <HeadContainer msg = "Phim Chiếu Rạp" class = ""/>
+        <HeadContainer handle = {() => {handleNavigate('Chiếu rạp')}} msg = "Phim Chiếu Rạp" class = ""/>
         <div className = 'home-movie-container'>
           { 
             isLoading ? (
@@ -88,7 +105,7 @@ const Home = () => {
       {/* MARK: phim bo
        */}
       <div className = "phim-container" style={{marginTop: '3%'}}>
-        <HeadContainer msg = "Phim Bộ" class = ""/>   
+        <HeadContainer handle = {() => {handleNavigate('Phim bộ')}} msg = "Phim Bộ" class = ""/>   
         <div className = 'home-movie-container'>
           { 
             isLoading ? (
@@ -113,7 +130,7 @@ const Home = () => {
       {/* MARK: hoat hinh */}
 
       <div className = "phim-container" style={{marginTop: '3%'}}>
-        <HeadContainer msg = "Hoạt Hình" class = ""/>   
+        <HeadContainer handle = {() => {handleNavigate('Hoạt hình')}}  msg = "Hoạt Hình" class = ""/>   
         <div className = 'home-movie-container'>
           { 
             isLoading ? (
