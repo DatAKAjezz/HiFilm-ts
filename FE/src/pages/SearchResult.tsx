@@ -16,6 +16,12 @@ const SearchResult = () => {
   const [filteredList, setFilteredList] = useState<MovieDetails[]>([]);
   const [filteredList2, setFilteredList2] = useState<MovieDetails[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [totalPages, setTotalPages] = useState<number>();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [currentPage])
 
   const [filters, setFilters] = useState({
     sort: "",
@@ -241,6 +247,36 @@ const SearchResult = () => {
     navigate(`/search?${params}`, { replace: true });
   };
 
+  // MARK: pagination
+
+  useEffect(() => {
+    setTotalPages(Math.ceil(filteredList2.length / 12))
+  }, [filteredList2])
+
+  const getPagination = () => {
+    
+    let pages = [];
+    const maxToShow = 5;
+
+    if (totalPages <= maxToShow){
+      for(let i = 1; i <= totalPages; ++i) pages.push(i);
+    }
+    else{
+      if (currentPage <= 3){
+        pages.push(1, 2, 3, "...", totalPages);
+      }
+      else if (currentPage >= totalPages - 2){
+        pages.push(1, "...", totalPages - 2, totalPages - 1, totalPages)
+      }
+      else{
+        pages.push(1, "...", currentPage - 1, currentPage, currentPage + 1, "...", totalPages);
+      }
+    }
+    return pages;
+  }
+
+  const pagination = getPagination();
+  
   return (
     <div className="home-container">
       <HeadContainer handle={() => {}} msg={`Tìm Kiếm : ${query}`} class="search-head" />
@@ -293,12 +329,43 @@ const SearchResult = () => {
           ) : filteredList2.length === 0 ? (
             <div className="nothing-found">Nga! Empty ahh List💀</div>
           ) : (
-            filteredList2?.map((Obj2, index) => {
-              if (index > 11) return;
+            filteredList2?.slice((currentPage - 1) * 12, (currentPage) * 12).map((Obj2) => {
               return <MovieCard movie={Obj2} />;
             })
           )}
         </div>
+      
+      <div className="pagination-container">
+          <div className="pagination-wrapper">
+            
+            <button
+             style={{backgroundColor: currentPage <= 1 ? "grey" : "white"}}
+             onClick={() => {if (currentPage > 1 ) setCurrentPage(prev => prev - 1)}}>{" < "}
+            </button>
+            
+            {(totalPages || 0) > 1 ? pagination.map((page, index) =>
+            typeof page === "number" ? (
+              <button
+                key={index}
+                className={currentPage === page ? "active" : ""}
+                onClick={() => {setCurrentPage(page)}}
+              >
+                {page}
+              </button>
+            ) : (
+              <span key={index} className="ellipsis">
+                ...
+              </span>
+            )
+          ) : null}
+
+            <button
+             style={{backgroundColor: currentPage >= (totalPages || 0) ? "grey" : "white"}}
+             onClick={() => {if (currentPage < (totalPages || 0) ) setCurrentPage(prev => prev + 1)}}>{" >   "}
+            </button>  
+        </div>
+      </div>
+      
       </div>
     </div>
   );

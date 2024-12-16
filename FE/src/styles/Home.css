@@ -35,7 +35,7 @@
         min-width: 15%;
         width: fit-content;
         display: flex;align-items: center;justify-content: center;
-        background-color:rgb(34, 189, 255);
+        background-color:rgb(181, 32, 9);
         color: black;
     }
     >p:nth-child(2){

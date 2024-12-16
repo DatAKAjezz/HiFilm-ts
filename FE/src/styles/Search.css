@@ -33,16 +33,16 @@
 
 #search-button{
     width: 15%;
-    background-color: rgb(41, 121, 233);
+    background-color: rgb(181, 32, 9);
     border-radius: 4px;
     display: flex;align-items: center;justify-content: center;
     color: white;
-    height: 2rem;
+    height: 1.7rem;
     cursor: pointer;
     transition: all 0.3s ease;
 }
 #search-button:hover{
-    background-color: rgb(14, 98, 215);
+    background-color: rgb(111, 5, 5);
     transform: scale(1.05);
 }
 #search-button:active{

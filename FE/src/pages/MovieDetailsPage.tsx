@@ -65,8 +65,7 @@ const MovieDetailsPage = () => {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    console.log(sep,' ' ,ep)
-  }, [ep, sep])
+  }, [ep, sep, slug])
 
   const [currentServer, setCurrentServer] = useState<number>(0);
 
