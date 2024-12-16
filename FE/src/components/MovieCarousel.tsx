@@ -20,7 +20,12 @@ const MovieCarousel = (props: {isInDetails: boolean, data: MovieDetails[]}) => {
 
   return (
     <div className={`new-movie-stage ${props.isInDetails ? 'details-carousel' : ''}`}  >
-      {!props.isInDetails ? <HeadContainer handle = {() => {}} msg="Phim Mới" class="" /> : <></> }
+      {!props.isInDetails ? <HeadContainer 
+                                handle = {() => {
+                                  navigate('/search?q=&sort=Lượt+xem&type=&genre=&country=&year=&isNavigated= ')
+                                }} 
+                                msg="Phim Mới" class="" 
+                            /> : <></> }
       <Swiper
         modules={[Navigation, Pagination, Autoplay]}
         slidesPerView={4}
@@ -28,7 +33,7 @@ const MovieCarousel = (props: {isInDetails: boolean, data: MovieDetails[]}) => {
         autoplay={{
           delay: 2000,
           pauseOnMouseEnter: true,
-          disableOnInteraction: false,
+          disableOnInteraction: true,
         }}
         loop
         className="new-movie-container"
@@ -54,7 +59,10 @@ const MovieCarousel = (props: {isInDetails: boolean, data: MovieDetails[]}) => {
                   <div
                     title={Obj.movie.name}
                     className="movie-card new-movie-card"
-                    style={{ backgroundImage: `url(${Obj.movie.poster_url})` }}
+                    style={{ backgroundImage: `linear-gradient(
+                                                    rgba(0, 0, 0, 0), 
+                                                    rgba(0, 0, 0, 0.65)
+                                                  ),url(${Obj.movie.poster_url})` }}
                     onClick={() => {navigate(`/${Obj.movie.slug}`)}}
                   >
                     <PiMonitorPlayLight className="play-icon" />

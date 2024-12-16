@@ -1,22 +1,22 @@
-import React from 'react'
+// import React from 'react'
 
-interface PaginationProps{
-    currentPage: number,
-    totalPages: number,
-}
+// interface PaginationProps{
+//     currentPage: number,
+//     totalPages: number,
+// }
 
-const Pagination: React.FC<PaginationProps> = ({
-            totalPages,
-            currentPage,
-        }) => {
+// const Pagination: React.FC<PaginationProps> = ({
+//             totalPages,
+//             currentPage,
+//         }) => {
 
             
 
-  return (
-    <div>
+//   return (
+//     <div>
       
-    </div>
-  )
-}
+//     </div>
+//   )
+// }
 
-export default Pagination
+// export default Pagination

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { MouseEventHandler, useEffect, useState } from 'react'
 import '../styles/Home.css'
 import MovieCard from '../components/MovieCard';
 import { MovieDetails } from './../services/types';
@@ -8,7 +8,7 @@ import { useMovies } from '../context/MovieContext';
 import { getMovieDetailsWithPage } from '../services/API';
 import { useNavigate } from 'react-router-dom';
 
-export const HeadContainer = (props: {handle, msg:string, class: string}) => {
+export const HeadContainer = (props: {handle: MouseEventHandler<HTMLParagraphElement> | undefined, msg:string, class: string}) => {
   return (  
     <div className = {`head-of-container ${props.class}`}>
       <p>{props.msg}</p>

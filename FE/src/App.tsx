@@ -27,7 +27,7 @@ function App() {
   }, [setAllMovies]);
 
   useEffect(() => {
-    console.log("Updated movies:", allMovies);
+    console.log("All movies:", allMovies);
   }, [allMovies]);
 
   return (

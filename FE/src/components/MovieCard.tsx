@@ -9,7 +9,10 @@ const MovieCard = (props: {movie: MovieDetails}) => {
   <div key = {props.movie.movie._id} onClick={() => { navigate(`/${props.movie.movie.slug}`)}} 
        style = {{width: '22.5%', height: '330px', position: 'relative'}} className='movie-card-wrapper'>
     <div title={props.movie.movie.name} key = {props.movie.movie._id} className = "movie-card" 
-        style={{backgroundImage: `url(${props.movie.movie.thumb_url})`}}>
+        style={{backgroundImage: `linear-gradient(
+          rgba(0, 0, 0, 0) 70%, 
+          rgba(0, 0, 0, 0.65)
+        ), url(${props.movie.movie.thumb_url})`}}>
 
         <PiMonitorPlayLight className = 'play-icon'/>
         <div className = 'card-name-wrapper'>
@@ -17,7 +20,7 @@ const MovieCard = (props: {movie: MovieDetails}) => {
             <p>{props.movie.movie.origin_name} {'('}{props.movie.movie.year}{')'}</p>
         </div>
     </div>
-    <p>{props.movie.movie.quality}</p>
+    {/* <p>{props.movie.movie.quality}</p> */}
   </div>
   )
 }

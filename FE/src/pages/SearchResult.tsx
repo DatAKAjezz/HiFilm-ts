@@ -17,11 +17,13 @@ const SearchResult = () => {
   const [filteredList2, setFilteredList2] = useState<MovieDetails[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const [totalPages, setTotalPages] = useState<number>();
+  const [totalPages, setTotalPages] = useState<number>(0);
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [currentPage])
+
+
 
   const [filters, setFilters] = useState({
     sort: "",
@@ -45,6 +47,7 @@ const SearchResult = () => {
       isNavigated: searchParam.get("isNavigated") || "",
     });
     console.log("Filters updated:", filters);
+    setCurrentPage(1);
   }, [searchParam]);
 
   useEffect(() => {
@@ -255,7 +258,7 @@ const SearchResult = () => {
 
   const getPagination = () => {
     
-    let pages = [];
+    const pages = [];
     const maxToShow = 5;
 
     if (totalPages <= maxToShow){
@@ -312,6 +315,10 @@ const SearchResult = () => {
           <i className="fa fa-search"></i>
         </p>
       </div>
+      
+      {/* MARK: results
+       */}
+      
       <div className="phim-container">
         <div className="home-movie-container">
           {isLoading ? (
