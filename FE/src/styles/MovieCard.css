@@ -1,0 +1,129 @@
+/*MARK: movie-card */
+
+.movie-card-wrapper{
+    margin-top: 2%;
+    overflow: hidden;
+}
+
+.movie-card-wrapper >p{
+    position: absolute;
+    top: 5px;
+    left: -10px;
+    border-radius: 2px;
+    width: fit-content;
+    padding-inline: 4px;
+    background-color: rgb(6, 103, 239);
+    color: white;
+    text-align: center;
+}
+
+.movie-card {
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    border-radius: 2%;
+    position: relative; 
+    overflow: hidden; 
+    cursor: pointer;
+    transition: transform 0.2s ease; 
+}
+
+.movie-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: inherit;
+    filter: blur(0px);
+    transform: scale(1); 
+    transition: transform 0.5s ease, filter 0.3s ease; 
+}
+
+.movie-card:hover::before {
+    filter: blur(2px); 
+    transform: scale(1.1);
+}
+
+.movie-card:hover .play-icon{
+    opacity: 1;
+    transform: translate(-50%, -50%);
+}
+
+.movie-card:active .play-icon{
+    color: red;
+}
+
+.play-icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -25%);
+    z-index: 2; 
+    font-size: 4rem;
+    color: white;
+    transition: all 0.3s ease;
+    opacity: 0;
+}
+.play-icon:hover{
+    color: red;
+}
+
+.movie-card-skeleton{
+    width: 23%;
+    height: 350px;
+}
+
+.opt{
+    font-size: 15px;
+    height: 0px;
+}
+
+.card-name-wrapper {
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+    >p:nth-child(1){
+        color: rgb(190, 190, 9);
+        font-size: 0.9rem;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        font-weight: bold;
+        text-align: center;
+        padding-left: 1rem;
+    }
+    >p:nth-child(2){
+        font-style: italic;
+        color: white;
+        font-size: 0.6rem;
+        text-align: center;
+        margin-bottom: 3%;
+    }
+}
+
+.movie-status{
+    z-index: 10;
+    top: 0;
+    left: 0;    
+    width: fit-content;
+    padding: 1px 12px 1px 6px;
+    background-color:rgb(207, 10, 10);
+    border-bottom-right-radius: 25px;
+    color: black;
+    position: absolute;
+}
+
+.movie-wrapped-up{
+    width: 100%;
+    color: black;
+    z-index: 10;
+    position: absolute;
+    text-align: center;
+    top: 8%;
+    left: -32%;
+    transform: rotateZ(-45deg);
+    background-image: linear-gradient(to right, #e91b08, #eb4a00, #ec6700, #ec8000, #eb9612);
+}

@@ -35,8 +35,8 @@ function App() {
       <SkeletonTheme baseColor="#313131" highlightColor="#525252">
         {/*style in TopMovies.css*/}
         <BrowserRouter>
+          <Header/>
           <div className="all-container">
-            <Header/>
             <Routes>
               <Route
                 path="/"

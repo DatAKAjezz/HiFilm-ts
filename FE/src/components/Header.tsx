@@ -74,7 +74,7 @@ const Header = () => {
                   <p>Viễn tưởng</p>
               </div>
             </li>
-            <li>
+            <li onClick={() => {navigate('/search?q=&sort=Lượt+xem&type=&genre=&country=&year=&isNavigated=')}}>
               <a>Xem nhiều nhất</a>
             </li>
 

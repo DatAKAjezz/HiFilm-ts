@@ -1,13 +1,24 @@
 import { useNavigate } from 'react-router-dom'
 import { MovieDetails } from '../services/types'
-import '../styles/Home.css'
+import '../styles/MovieCard.css'
 import { PiMonitorPlayLight } from 'react-icons/pi'
 
 const MovieCard = (props: {movie: MovieDetails}) => {
   const navigate = useNavigate();
+  const isSeries = props.movie.episodes[0].server_data.length > 1;
   return (
   <div key = {props.movie.movie._id} onClick={() => { navigate(`/${props.movie.movie.slug}`)}} 
        style = {{width: '22.5%', height: '330px', position: 'relative'}} className='movie-card-wrapper'>
+    {
+      isSeries && props.movie.movie.status === 'ongoing' ? (<div className = 'movie-status'>
+        {`Tập ${props.movie.episodes[0].server_data.length}`}
+      </div>) : (<></>)
+    }
+    {
+      isSeries && props.movie.movie.status != 'ongoing' ? <div className='movie-wrapped-up'>
+        Hoàn Tất
+      </div> : <></>
+    }
     <div title={props.movie.movie.name} key = {props.movie.movie._id} className = "movie-card" 
         style={{backgroundImage: `linear-gradient(
           rgba(0, 0, 0, 0) 70%, 

@@ -3,6 +3,8 @@
     background-color: rgb(21, 17, 17);
     width: 100vw;
     display: flex;
+    position: fixed;
+    z-index: 99;
 }
 
 .logo-container{
