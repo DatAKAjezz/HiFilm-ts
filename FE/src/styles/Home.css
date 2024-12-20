@@ -47,7 +47,7 @@
         cursor: pointer;
     }
     >p:nth-child(2):hover{
-        color :rgb(236, 114, 43);
+        color:rgb(207, 10, 10);
     }
 }
 /*MARK: new movie

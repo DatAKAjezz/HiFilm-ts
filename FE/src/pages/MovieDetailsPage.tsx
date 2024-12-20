@@ -222,6 +222,16 @@ const MovieDetailsPage = () => {
               </p> 
             </div>
           </div> 
+          <div className='server-wrapper'>
+              {
+                movie?.episodes.map((sv, index) => {
+                  return( 
+                    <div id = {`${index}`}>
+                      <i className='fa fa-play'> &nbsp;</i>{sv.server_name}
+                    </div>)
+                })
+              }
+            </div>
         </>) 
         : (
         <div className='detail-container'>
@@ -234,9 +244,19 @@ const MovieDetailsPage = () => {
             <h2>{movie?.movie.name}</h2>
             <p>({movie?.movie.origin_name} {movie?.movie.year})</p>
             <p>
-              {movie?.movie.status ? "FULL" : "NEW"} {" "}
-              {(movie ? movie?.episodes[0].server_data.length : 0) > 1 ? `${movie?.episodes[0].server_data.length }/${movie?.episodes[0].server_data.length }` : ""}
-              {" "}VIETSUB
+            {
+              (movie?.episodes[0].server_data.length ?? 0) > 1 && movie?.movie.status === 'completed' 
+                  ? `Tập ${movie?.episodes[0].server_data.length } / ${movie?.episodes[0].server_data.length }`
+                  : ``
+            }
+            {
+              (movie?.episodes[0].server_data.length ?? 0) > 1 && movie?.movie.status === 'ongoing' 
+                  ? `Tập ${movie?.episodes[0].server_data.length }`
+                  : ``
+            }
+            {
+              movie?.episodes[0].server_data.length === 1 ? "Full Vietsub" : ''
+            }
             </p>
           </div>
           
@@ -262,9 +282,11 @@ const MovieDetailsPage = () => {
 
           <div>
             {
-              movie?.movie.category.map((tag) => (
-                <p>{tag.name}</p>
-              ))
+              movie?.movie.category.map((tag, index) => {
+                
+              return (
+                <p>{tag.name}&nbsp;{index != movie.movie.category.length - 1 ? ' | ' : ''}</p>
+              )})
             }
           </div>
 

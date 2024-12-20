@@ -26,6 +26,11 @@
         }
     }
 }
+
+
+/* MARK: right 
+*/
+
 .right{
     width: 78%;
     >div:nth-child(1){
@@ -38,7 +43,8 @@
         >p:nth-child(3){
             width: fit-content;
             margin-top: 10px;
-            background-color: rgb(64, 139, 234);
+            border-radius: 2px;
+            background-color: rgb(10, 101, 220);
             padding-inline: 7px;
             display: inline;
             height: 4vh;
@@ -153,6 +159,8 @@
     margin-inline: auto;
     margin-top: 3%;
     margin-bottom: 3.2%;
+    display: flex;
+    flex-wrap: wrap;
     >iframe{
         aspect-ratio: 16/9;
         width: 100%;
@@ -164,6 +172,7 @@
     margin: 0 auto;
     display: flex;
     justify-content: space-between;
+    flex-wrap: wrap;
     >div{
         display: flex;
         align-items: center;justify-content: center;
@@ -188,6 +197,19 @@
     width: 86%;
     margin: 0 auto;
     margin-bottom: 0.5rem;
+}
+
+.server-wrapper{
+    width: 100% !important;
+    >div{
+        height: 6vh;
+        width: 90%;
+        margin: 0 auto;
+        background-color: rgb(36, 36, 36);
+        display: flex;
+        align-items: center;
+        padding-left: 20px; 
+    }
 }
 
 /*MARK: episodes 
