@@ -65,8 +65,11 @@ const MovieDetailsPage = () => {
 
   useEffect(() => {
     window.scrollTo(0, 0);
+    setCurrentEpisode(Number(ep));
+    setCurrentServer(Number(sep));
   }, [ep, sep, slug])
 
+  const [currentEpisode, setCurrentEpisode] = useState<number>(0);
   const [currentServer, setCurrentServer] = useState<number>(0);
 
   const handleNavigateEpisode = (sv: number, ep: number) => {
@@ -86,19 +89,6 @@ const MovieDetailsPage = () => {
         setInfoDiv(
             <div className='episodes'>
               <div className='episode-container'>
-
-                <ul className='server'>
-                <h3>Chọn server</h3>
-                  {
-                    movie?.episodes.map((sv, index) => (
-                      <li onClick={() => {
-                        setCurrentServer(index);
-                      }}
-                      className={`${index === currentServer ? 'active-server' : ''}`}
-                      >{sv.server_name}</li>
-                    ))
-                  }
-                </ul>
 
                 <ul className='episode'>
                 <h3>Chọn tập phim</h3>
@@ -222,13 +212,22 @@ const MovieDetailsPage = () => {
               </p> 
             </div>
           </div> 
+          <hr/>
           <div className='server-wrapper'>
+          <h3>Chọn Server</h3>
               {
                 movie?.episodes.map((sv, index) => {
                   return( 
-                    <div id = {`${index}`}>
+                  <>
+                    <div id = {`${index}`} 
+                          className = {currentServer === index ? 'active-server' : ''}
+                          onClick = {() => {
+                            navigate(`/${movie?.movie.slug}/${currentEpisode}/${index}`)
+                          }}
+                          >
                       <i className='fa fa-play'> &nbsp;</i>{sv.server_name}
-                    </div>)
+                    </div>
+                  </>)
                 })
               }
             </div>
