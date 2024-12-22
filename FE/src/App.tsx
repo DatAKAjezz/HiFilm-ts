@@ -1,17 +1,14 @@
-import { useEffect } from "react";
-import "./App.css";
-import Header from "./components/Header";
-import Home from "./pages/Home";
-import TopMovies from "./components/TopMovies";
-import { MovieProvider, useMovies } from "./context/MovieContext";
-import axios from "axios";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { SkeletonTheme } from "react-loading-skeleton";
-import Footer from "./components/Footer";
-import SearchResult from "./pages/SearchResult";
-import MovieDetailsPage from "./pages/MovieDetailsPage";
+import routes from "./routes/routes";
+import { MovieProvider, useMovies } from "./context/MovieContext";
+import { RouterProvider } from "react-router-dom";
+import { useEffect } from "react";
+import axios from "axios";
+import "./App.css";
+
 
 function App() {
+
   const { allMovies, setAllMovies } = useMovies();
 
   useEffect(() => {
@@ -31,39 +28,9 @@ function App() {
   }, [allMovies]);
 
   return (
-    <div>
-      <SkeletonTheme baseColor="#313131" highlightColor="#525252">
-        {/*style in TopMovies.css*/}
-        <BrowserRouter>
-          <Header/>
-          <div className="all-container">
-            <Routes>
-              <Route
-                path="/"
-                element={
-                  <>
-                    <Home />
-                    <TopMovies />
-                  </>
-                }
-              />
-              <Route
-                path="/search"
-                element={ 
-                  <>
-                    <SearchResult />
-                    <TopMovies />
-                  </>
-                }
-              />
-              <Route path="/:slug" element={<><MovieDetailsPage /><TopMovies/></>} />
-              <Route path="/:slug/:ep/:sep" element={<><MovieDetailsPage /><TopMovies/></>}/>
-            </Routes>
-            <Footer />
-          </div>
-        </BrowserRouter>
-      </SkeletonTheme>
-    </div>
+    <SkeletonTheme baseColor="#313131" highlightColor="#525252">
+      <RouterProvider router={routes} />
+    </SkeletonTheme>
   );
 }
 

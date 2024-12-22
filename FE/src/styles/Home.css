@@ -2,6 +2,12 @@
     width: 70%;
 }
 
+.main-content{
+    margin-top: 5rem;
+    width: 100% !important;
+    display: flex;  
+}
+
 .phim-container{
 
     background-color: rgb(15, 20, 22);
