@@ -33,10 +33,14 @@
         padding-block: 0.8%;
         padding-inline: 1%;
         min-width: 15%;
+        max-width: 40%;
         width: fit-content;
-        display: flex;align-items: center;justify-content: center;
         background-color:rgb(207, 10, 10);
         color: black;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        text-align: center;
     }
     >p:nth-child(2){
         display: flex;

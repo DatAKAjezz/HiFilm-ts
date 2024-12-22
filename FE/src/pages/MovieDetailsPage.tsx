@@ -93,11 +93,11 @@ const MovieDetailsPage = () => {
                 <ul className='episode'>
                 <h3>Chọn tập phim</h3>
                 {
-                    movie?.episodes[currentServer].server_data
-                    .slice(0, Math.min(visibleEps, movie?.episodes[0].server_data.length))
+                    movie?.episodes[Number(sep || 0)]?.server_data
+                    .slice(0, Math.min(visibleEps, movie?.episodes[0]?.server_data.length))
                     .map((mv, index) => (
                       <li onClick={() => {
-                          handleNavigateEpisode(currentServer, index);
+                          handleNavigateEpisode(Number(sep || 0), index);
                         }} 
                         key={index}
                         className = {`${index === Number(ep) ? 'active-episode' : ''}`}
@@ -225,7 +225,11 @@ const MovieDetailsPage = () => {
                             navigate(`/${movie?.movie.slug}/${currentEpisode}/${index}`)
                           }}
                           >
-                      <i className='fa fa-play'> &nbsp;</i>{sv.server_name}
+                    
+                      {
+                        currentServer === index ? <img src = '/animation.gif' ></img> : <i className='fa fa-play'> &nbsp;</i>
+                      }
+                      {sv.server_name}
                     </div>
                   </>)
                 })
@@ -299,7 +303,7 @@ const MovieDetailsPage = () => {
     <div className='thongtin'>
       <ul>
         <li onClick={() => {handleThongTin(0)}} style={{backgroundColor: 'rgb(242, 38, 38)'}}>
-          <i style={{marginRight: '4px'}} className="fa-solid fa-play"></i> Xem phim
+           Xem phim
         </li>
         {
           infos.map((info, index) => (
