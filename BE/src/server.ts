@@ -7,6 +7,7 @@ const app = express();
 const port = 3000;
 // data
 let allMovieDetails: MovieDetails[] = [];  
+let theLoai: Set<string> = new Set();
 
 app.use(cors());
 
@@ -28,7 +29,8 @@ const fetchMovies = async () => {
     try {
         while (true) {
             console.log("fetching page: ", currentPage);
-            const response = await axios.get<MovieListResponse>(`https://ophim1.com/danh-sach/phim-moi-cap-nhat?page=${currentPage}`);
+            const response = 
+                await axios.get<MovieListResponse>(`https://ophim1.com/danh-sach/phim-moi-cap-nhat?page=${currentPage}`);
             const movies = response.data.items;
     
             const detailsPromises = movies.map((movie) => {
@@ -65,7 +67,10 @@ app.get('/api/movies', (req, res) => {
         res.json({
             status: "success",
             message: "Fetching complete",
-            data: allMovieDetails
+            data: {
+                allMovieDetails:  allMovieDetails,
+                theLoai: theLoai
+            }
         });
     } else {
         res.status(500).json({ message: 'Movies not fetched yet' });
