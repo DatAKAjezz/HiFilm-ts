@@ -44,7 +44,7 @@ const BreadScrumb: React.FC<MovieDetailsProps> = ({movie}: {movie?: MovieDetails
   return (
     <nav className="bread-scrumb">
       <Link to="/" style={{ textDecoration: "none", color: "rgb(67, 173, 235)" }}>
-        Trang chủ
+        Coi phim
       </Link>
       {breadcrumbs.map((crumb, index) => (
         <p className='abc' key={index}>
